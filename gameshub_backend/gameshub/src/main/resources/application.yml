@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gameshub
+    username: postgres
+    password: admin
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8081
+
+external-api:
+  steam:
+    url: https://api.steampowered.com
+    store:
+      url: https://store.steampowered.com
+  gog:
+    embed:
+      url: https://embed.gog.com
+    api:
+      url: https://api.gog.com
