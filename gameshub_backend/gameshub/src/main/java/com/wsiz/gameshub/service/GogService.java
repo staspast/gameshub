@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GogService implements GameProviderService {
+public class GogService implements GameProviderService<GogGameDetailsDto> {
 
     @Value("${external-api.gog.embed.url}")
     private String apiEmbedUrl;
@@ -91,6 +91,7 @@ public class GogService implements GameProviderService {
         return images;
     }
 
+    @Override
     public GogGameDetailsDto getGameDetails(String externalGameId) {
         ResponseEntity<GogGameDetailsDto> respose = restTemplate.getForEntity(apiUrl + "/products/" + externalGameId + "?expand=description", GogGameDetailsDto.class);
         return respose.getBody() != null ? respose.getBody() : new GogGameDetailsDto();

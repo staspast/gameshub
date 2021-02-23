@@ -1,7 +1,6 @@
 package com.wsiz.gameshub.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wsiz.gameshub.dto.SteamGameDetailsDto;
 import com.wsiz.gameshub.dto.SteamGamesListResponseDto;
@@ -16,11 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class SteamService implements GameProviderService {
+public class SteamService implements GameProviderService<SteamGameDetailsDto> {
 
     @Value("${external-api.steam.url}")
     private String apiUrl;
@@ -49,6 +47,7 @@ public class SteamService implements GameProviderService {
         gamesRepository.saveAll(games);
     }
 
+    @Override
     public SteamGameDetailsDto getGameDetails(String externalGameId) {
 
         SteamGameDetailsDto detailsDto = new SteamGameDetailsDto();
