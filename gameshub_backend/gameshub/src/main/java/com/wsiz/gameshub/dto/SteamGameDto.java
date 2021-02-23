@@ -12,5 +12,5 @@ public class SteamGameDto {
 
     private String name;
     @JsonProperty("appid")
-    private Long appId;
+    private String appId;
 }

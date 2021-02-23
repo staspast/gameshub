@@ -25,7 +25,7 @@ public class Game {
     private String name;
 
     @Column
-    private Long externalAppId;
+    private String externalAppId;
 
     @Column
     private String marketplaceName;

@@ -13,13 +13,10 @@ import com.wsiz.gameshub.model.repository.GameImageRepository;
 import com.wsiz.gameshub.model.repository.GamesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,7 +91,7 @@ public class GogService implements GameProviderService {
         return images;
     }
 
-    public GogGameDetailsDto getGameDetails(Long externalGameId) {
+    public GogGameDetailsDto getGameDetails(String externalGameId) {
         ResponseEntity<GogGameDetailsDto> respose = restTemplate.getForEntity(apiUrl + "/products/" + externalGameId + "?expand=description", GogGameDetailsDto.class);
         return respose.getBody() != null ? respose.getBody() : new GogGameDetailsDto();
     }

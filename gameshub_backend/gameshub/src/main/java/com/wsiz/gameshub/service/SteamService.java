@@ -49,7 +49,7 @@ public class SteamService implements GameProviderService {
         gamesRepository.saveAll(games);
     }
 
-    public SteamGameDetailsDto getGameDetails(Long externalGameId) {
+    public SteamGameDetailsDto getGameDetails(String externalGameId) {
 
         SteamGameDetailsDto detailsDto = new SteamGameDetailsDto();
 

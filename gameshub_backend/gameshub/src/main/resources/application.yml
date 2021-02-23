@@ -21,3 +21,6 @@ external-api:
       url: https://embed.gog.com
     api:
       url: https://api.gog.com
+  humblebundle:
+    api:
+      url: https://www.humblebundle.com

@@ -20,7 +20,7 @@ public class GogGameDto {
     @JsonProperty("title")
     private String name;
     @JsonProperty("id")
-    private Long appId;
+    private String appId;
     private String currency;
     private BigDecimal priceInitial;
     private BigDecimal priceFinal;

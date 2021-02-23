@@ -26,7 +26,7 @@ public class SteamGamesListResponseDto {
         gameAsMap.forEach(game -> {
             SteamGameDto steamGameDto = SteamGameDto.builder()
                     .name((String) game.get("name"))
-                    .appId(Long.valueOf((Integer) game.get("appid")))
+                    .appId(String.valueOf((Integer) game.get("appid")))
                     .build();
             gamesList.add(steamGameDto);
         });
