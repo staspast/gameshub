@@ -3,6 +3,8 @@ package com.wsiz.gameshub.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -13,5 +15,9 @@ import lombok.*;
 public class HumbleBundleGameDetailsDto {
 
     private String description;
+    private String publisher;
+    private String developer;
+    private List<String> categories;
+    private List<String> images;
 
 }
