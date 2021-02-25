@@ -18,9 +18,7 @@ public class GogDecorator implements GameDecorator{
     @Transactional
     public void decorate(Game game) {
         if(!Boolean.TRUE.equals(game.getLoadedDetailsFromExternalApi())){
-
             GogGameDetailsDto gogGameDetailsDto = gogService.getGameDetails(game.getExternalAppId());
-
             game.setDescription(gogGameDetailsDto.getDescription());
             game.setShortDescription(gogGameDetailsDto.getShortDescription());
             game.setLoadedDetailsFromExternalApi(true);
