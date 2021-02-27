@@ -1,5 +1,6 @@
 package com.wsiz.gameshub.controller;
 
+import com.wsiz.gameshub.service.EpicGamesService;
 import com.wsiz.gameshub.service.GogService;
 import com.wsiz.gameshub.service.HumbleBundleService;
 import com.wsiz.gameshub.service.SteamService;
@@ -17,10 +18,17 @@ public class DataLoaderController {
     private final SteamService steamService;
     private final GogService gogService;
     private final HumbleBundleService humbleBundleService;
+    private final EpicGamesService epicGamesService;
 
     @PostMapping("/steam")
     public ResponseEntity<Void> loadSteamData(){
         steamService.loadData();
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/epic")
+    public ResponseEntity<Void> loadEpicGamesData(){
+        epicGamesService.loadData();
         return ResponseEntity.ok().build();
     }
 

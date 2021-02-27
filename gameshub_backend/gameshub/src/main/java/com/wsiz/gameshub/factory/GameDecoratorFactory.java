@@ -1,10 +1,7 @@
 package com.wsiz.gameshub.factory;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.decorator.GameDecorator;
-import com.wsiz.gameshub.decorator.GogDecorator;
-import com.wsiz.gameshub.decorator.HumbleBundleDecorator;
-import com.wsiz.gameshub.decorator.SteamDecorator;
+import com.wsiz.gameshub.decorator.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +12,7 @@ public class GameDecoratorFactory {
     private final SteamDecorator steamDecorator;
     private final GogDecorator gogDecorator;
     private final HumbleBundleDecorator humbleBundleDecorator;
+    private final EpicGamesDecorator epicGamesDecorator;
 
     public GameDecorator getDecoratorForMarketplace(String marketplaceName){
         switch (marketplaceName){
@@ -24,6 +22,8 @@ public class GameDecoratorFactory {
                 return gogDecorator;
             case MarketPlaceConstants.MARKETPLACE_NAME_HUMBLE_BUNDLE:
                 return humbleBundleDecorator;
+            case MarketPlaceConstants.MARKETPLACE_NAME_EPIC_GAMES:
+                return epicGamesDecorator;
             default:
                 throw new IllegalArgumentException("Incorrect marketplace value");
         }

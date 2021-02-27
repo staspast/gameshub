@@ -24,3 +24,9 @@ external-api:
   humblebundle:
     api:
       url: https://www.humblebundle.com
+  origin:
+    api:
+      url: https://api3.origin.com
+  epic-games:
+    api:
+      url: https://www.epicgames.com

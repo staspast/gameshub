@@ -17,7 +17,7 @@ public class GamesService {
     private final GameDecoratorFactory gameDecoratorFactory;
 
     public List<Game> getGameList(SearchGamesFilter filter){
-        List<Game> games = gamesRepository.search(filter.getName(), filter.getMarketplaceName());
+        List<Game> games = gamesRepository.search(filter.getName() != null ? filter.getName() : "", filter.getMarketplaceName());
 
         games.forEach(game -> {
             gameDecoratorFactory.getDecoratorForMarketplace(game.getMarketplaceName()).decorate(game);
