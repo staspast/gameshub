@@ -1,5 +1,6 @@
 package com.wsiz.gameshub.decorator;
 
+import com.wsiz.gameshub.constant.MarketPlaceConstants;
 import com.wsiz.gameshub.dto.GogGameDetailsDto;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.service.GogService;
@@ -10,7 +11,7 @@ import javax.transaction.Transactional;
 
 @Component
 @RequiredArgsConstructor
-public class GogDecorator implements GameDecorator{
+public class GogDecorator extends GameDecorator{
 
     private final GogService gogService;
 
@@ -23,5 +24,10 @@ public class GogDecorator implements GameDecorator{
             game.setShortDescription(gogGameDetailsDto.getShortDescription());
             game.setLoadedDetailsFromExternalApi(true);
         }
+    }
+
+    @Override
+    protected String getMarketplaceName() {
+        return MarketPlaceConstants.MARKETPLACE_NAME_GOG;
     }
 }

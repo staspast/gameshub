@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class SteamDecorator implements GameDecorator{
+public class SteamDecorator extends GameDecorator{
 
     private final SteamService steamService;
     private final CategoryRepository categoryRepository;
@@ -39,17 +39,22 @@ public class SteamDecorator implements GameDecorator{
 
             game.setIsReleased(detailsDto.getIsReleased());
             game.setIsGame("game".equals(detailsDto.getType()));
-            game.setCategories(detailsDto.getGenres() != null ? getCategories(detailsDto.getGenres()) : null);
+            game.setCategories(detailsDto.getGenres() != null ? getSteamCategories(detailsDto.getGenres()) : null);
             game.setShortDescription(detailsDto.getShortDescription());
             game.setDescription(detailsDto.getDescription());
             game.setMainImageUrl(detailsDto.getMainImageUrl());
             game.setDeveloper(detailsDto.getDevelopers() != null ? String.join(",", detailsDto.getDevelopers()) : null);
             game.setPublisher(detailsDto.getPublishers() != null ? String.join(",", detailsDto.getPublishers()) : null);
-            game.setGameImages(detailsDto.getScreenshots() != null ? getGameImagesForGame(detailsDto.getScreenshots(), game) : null);
+            game.setGameImages(detailsDto.getScreenshots() != null ? getSteamGameImagesForGame(detailsDto.getScreenshots(), game) : null);
         }
     }
 
-    private List<Category> getCategories(List<SteamCategoryDto> categoryDtos){
+    @Override
+    protected String getMarketplaceName() {
+        return MarketPlaceConstants.MARKETPLACE_NAME_STEAM;
+    }
+
+    private List<Category> getSteamCategories(List<SteamCategoryDto> categoryDtos){
         return categoryDtos.stream().map(this::getCategory).collect(Collectors.toList());
     }
 
@@ -68,7 +73,7 @@ public class SteamDecorator implements GameDecorator{
         return category;
     }
 
-    private List<GameImage> getGameImagesForGame(List<SteamImageDto> steamImageDtos, Game game){
+    private List<GameImage> getSteamGameImagesForGame(List<SteamImageDto> steamImageDtos, Game game){
         List<GameImage> images = steamImageDtos.stream().map(dto -> GameImage.builder()
                 .imageUrl(dto.getImageFull())
                 .imageThumbnailUrl(dto.getImageThumbnail())
