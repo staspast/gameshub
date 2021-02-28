@@ -27,6 +27,8 @@ external-api:
   origin:
     api:
       url: https://api3.origin.com
+    store:
+      url: https://www.origin.com
   epic-games:
     api:
       url: https://www.epicgames.com

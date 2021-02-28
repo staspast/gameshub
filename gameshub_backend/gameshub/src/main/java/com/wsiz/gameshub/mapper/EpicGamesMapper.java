@@ -1,7 +1,7 @@
 package com.wsiz.gameshub.mapper;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.EpicGameDto;
+import com.wsiz.gameshub.dto.epic.EpicGameDto;
 import com.wsiz.gameshub.model.entity.Game;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,9 @@
 package com.wsiz.gameshub.decorator;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.SteamCategoryDto;
-import com.wsiz.gameshub.dto.SteamGameDetailsDto;
-import com.wsiz.gameshub.dto.SteamImageDto;
+import com.wsiz.gameshub.dto.steam.SteamCategoryDto;
+import com.wsiz.gameshub.dto.steam.SteamGameDetailsDto;
+import com.wsiz.gameshub.dto.steam.SteamImageDto;
 import com.wsiz.gameshub.model.entity.Category;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.model.entity.GameImage;

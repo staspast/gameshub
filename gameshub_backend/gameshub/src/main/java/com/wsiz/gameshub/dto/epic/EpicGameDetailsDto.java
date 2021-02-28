@@ -1,4 +1,4 @@
-package com.wsiz.gameshub.dto;
+package com.wsiz.gameshub.dto.epic;
 
 import lombok.*;
 

@@ -1,7 +1,7 @@
 package com.wsiz.gameshub.decorator;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.EpicGameDetailsDto;
+import com.wsiz.gameshub.dto.epic.EpicGameDetailsDto;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.service.EpicGamesService;
 import lombok.RequiredArgsConstructor;

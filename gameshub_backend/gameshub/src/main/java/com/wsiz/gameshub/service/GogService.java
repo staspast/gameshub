@@ -1,7 +1,8 @@
 package com.wsiz.gameshub.service;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.*;
+import com.wsiz.gameshub.dto.gog.GogGameDetailsDto;
+import com.wsiz.gameshub.dto.gog.GogGamesListResponseDto;
 import com.wsiz.gameshub.mapper.GogMapper;
 import com.wsiz.gameshub.model.entity.Category;
 import com.wsiz.gameshub.model.entity.Game;

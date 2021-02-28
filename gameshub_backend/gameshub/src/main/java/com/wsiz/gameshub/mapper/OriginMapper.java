@@ -1,12 +1,9 @@
 package com.wsiz.gameshub.mapper;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.GogGameDto;
-import com.wsiz.gameshub.dto.OriginGameDto;
+import com.wsiz.gameshub.dto.origin.OriginGameDto;
 import com.wsiz.gameshub.model.entity.Game;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class OriginMapper implements GameMapper<OriginGameDto, Game> {

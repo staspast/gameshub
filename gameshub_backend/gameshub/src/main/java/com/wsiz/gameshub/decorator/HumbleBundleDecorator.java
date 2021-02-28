@@ -1,7 +1,7 @@
 package com.wsiz.gameshub.decorator;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.HumbleBundleGameDetailsDto;
+import com.wsiz.gameshub.dto.humblebundle.HumbleBundleGameDetailsDto;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.service.HumbleBundleService;
 import lombok.RequiredArgsConstructor;

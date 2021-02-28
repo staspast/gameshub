@@ -1,4 +1,4 @@
-package com.wsiz.gameshub.dto;
+package com.wsiz.gameshub.dto.gog;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

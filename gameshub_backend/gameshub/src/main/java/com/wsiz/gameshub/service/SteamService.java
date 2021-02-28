@@ -2,8 +2,8 @@ package com.wsiz.gameshub.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wsiz.gameshub.dto.SteamGameDetailsDto;
-import com.wsiz.gameshub.dto.SteamGamesListResponseDto;
+import com.wsiz.gameshub.dto.steam.SteamGameDetailsDto;
+import com.wsiz.gameshub.dto.steam.SteamGamesListResponseDto;
 import com.wsiz.gameshub.mapper.SteamMapper;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.model.repository.GamesRepository;

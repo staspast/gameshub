@@ -13,6 +13,7 @@ public class GameDecoratorFactory {
     private final GogDecorator gogDecorator;
     private final HumbleBundleDecorator humbleBundleDecorator;
     private final EpicGamesDecorator epicGamesDecorator;
+    private final OriginDecorator originDecorator;
 
     public GameDecorator getDecoratorForMarketplace(String marketplaceName){
         switch (marketplaceName){
@@ -24,6 +25,8 @@ public class GameDecoratorFactory {
                 return humbleBundleDecorator;
             case MarketPlaceConstants.MARKETPLACE_NAME_EPIC_GAMES:
                 return epicGamesDecorator;
+            case MarketPlaceConstants.MARKETPLACE_NAME_EPIC_ORIGIN:
+                return originDecorator;
             default:
                 throw new IllegalArgumentException("Incorrect marketplace value");
         }

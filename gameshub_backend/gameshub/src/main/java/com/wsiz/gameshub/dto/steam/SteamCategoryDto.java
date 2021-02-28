@@ -1,4 +1,4 @@
-package com.wsiz.gameshub.dto;
+package com.wsiz.gameshub.dto.steam;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;

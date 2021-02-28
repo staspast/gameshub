@@ -1,7 +1,7 @@
 package com.wsiz.gameshub.decorator;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.GogGameDetailsDto;
+import com.wsiz.gameshub.dto.gog.GogGameDetailsDto;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.service.GogService;
 import lombok.RequiredArgsConstructor;
