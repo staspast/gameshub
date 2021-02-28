@@ -1,8 +1,11 @@
 package com.wsiz.gameshub.service;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.*;
+import com.wsiz.gameshub.dto.GogGameDetailsDto;
+import com.wsiz.gameshub.dto.GogGamesListResponseDto;
+import com.wsiz.gameshub.dto.OriginGamesListResponseDto;
 import com.wsiz.gameshub.mapper.GogMapper;
+import com.wsiz.gameshub.mapper.OriginMapper;
 import com.wsiz.gameshub.model.entity.Category;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.model.entity.GameImage;
@@ -19,24 +22,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GogService implements GameProviderService<GogGameDetailsDto> {
+public class OriginService implements GameProviderService<GogGameDetailsDto> {
 
-    @Value("${external-api.gog.embed.url}")
-    private String apiEmbedUrl;
-
-    @Value("${external-api.gog.api.url}")
+    @Value("${external-api.origin.api.url}")
     private String apiUrl;
 
     private final RestTemplate restTemplate;
     private final GamesRepository gamesRepository;
     private final CategoryRepository categoryRepository;
     private final GameImageRepository gameImageRepository;
-    private final GogMapper mapper;
+    private final OriginMapper mapper;
 
-    private final static int GOG_PAGE_MAX = 98;
+    private final static int ORIGIN_MAX_GAMES = 978;
+    private final static int ORIGIN_PAGE_STEP = 30;
 
     @Autowired
-    public GogService(GamesRepository gamesRepository, GogMapper steamMapper, CategoryRepository categoryRepository, GameImageRepository gameImageRepository){
+    public OriginService(GamesRepository gamesRepository, OriginMapper steamMapper, CategoryRepository categoryRepository, GameImageRepository gameImageRepository){
         this.restTemplate = new RestTemplate();
         this.gamesRepository = gamesRepository;
         this.mapper = steamMapper;
@@ -47,17 +48,16 @@ public class GogService implements GameProviderService<GogGameDetailsDto> {
     @Override
     public void loadData(){
 
-        int page = 1;
+        int start = 0;
 
-        while (page <= GOG_PAGE_MAX) {
-            ResponseEntity<GogGamesListResponseDto> response = restTemplate.getForEntity(apiEmbedUrl + "/games/ajax/filtered?mediaType=game&page=" + page, GogGamesListResponseDto.class);
-            response.getBody().getProducts().forEach(gogGameDto -> {
-                Game game = mapper.map(gogGameDto);
-                gamesRepository.save(game);
-                game.setCategories(getCategories(gogGameDto.getGenres()));
-                game.setGameImages(getGameImagesForGame(gogGameDto.getGallery(), game));
-            });
-            page++;
+        while (start <= ORIGIN_MAX_GAMES) {
+            ResponseEntity<OriginGamesListResponseDto> response = restTemplate.getForEntity(apiUrl + "/xsearch/store/en_us/pol/products?rows=30&isGDP=true&start=" + start, OriginGamesListResponseDto.class);
+
+            List<Game> games = response.getBody().getGamesDtoList().stream().map(mapper::map).collect(Collectors.toList());
+
+            gamesRepository.saveAll(games);
+
+            start+=ORIGIN_PAGE_STEP;
         }
     }
 
@@ -91,8 +91,7 @@ public class GogService implements GameProviderService<GogGameDetailsDto> {
 
     @Override
     public GogGameDetailsDto getGameDetails(String externalGameId) {
-        ResponseEntity<GogGameDetailsDto> respose = restTemplate.getForEntity(apiUrl + "/products/" + externalGameId + "?expand=description", GogGameDetailsDto.class);
-        return respose.getBody() != null ? respose.getBody() : new GogGameDetailsDto();
+        return null;
     }
 
 }

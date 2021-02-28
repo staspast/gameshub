@@ -1,9 +1,6 @@
 package com.wsiz.gameshub.controller;
 
-import com.wsiz.gameshub.service.EpicGamesService;
-import com.wsiz.gameshub.service.GogService;
-import com.wsiz.gameshub.service.HumbleBundleService;
-import com.wsiz.gameshub.service.SteamService;
+import com.wsiz.gameshub.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +16,7 @@ public class DataLoaderController {
     private final GogService gogService;
     private final HumbleBundleService humbleBundleService;
     private final EpicGamesService epicGamesService;
+    private final OriginService originService;
 
     @PostMapping("/steam")
     public ResponseEntity<Void> loadSteamData(){
@@ -41,6 +39,12 @@ public class DataLoaderController {
     @PostMapping("/humblehubdle")
     public ResponseEntity<Void> loadHumbleBundleData(){
         humbleBundleService.loadData();
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/origin")
+    public ResponseEntity<Void> loadOriginData(){
+        originService.loadData();
         return ResponseEntity.ok().build();
     }
 }

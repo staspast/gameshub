@@ -23,7 +23,7 @@ public class EpicGamesUpdateTask implements UpdateTask{
     private final EpicGamesDecorator decorator;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 10000)
     public void updateNonUpdatedGameData(){
         List<Game> gamesToProcess = gamesRepository.findNonLoadedByMarketplaceName(MarketPlaceConstants.MARKETPLACE_NAME_EPIC_GAMES, PageRequest.of(0, 10));
 

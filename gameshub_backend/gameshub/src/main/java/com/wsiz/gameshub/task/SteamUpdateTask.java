@@ -25,7 +25,7 @@ public class SteamUpdateTask implements UpdateTask{
     @Transactional(propagation = Propagation.REQUIRES_NEW)
 //    @Scheduled(fixedDelay = 60000)
     public void updateNonUpdatedGameData(){
-        List<Game> gamesToProcess = gamesRepository.findNonLoadedByMarketplaceName(MarketPlaceConstants.MARKETPLACE_NAME_STEAM, PageRequest.of(0, 60));
+        List<Game> gamesToProcess = gamesRepository.findNonLoadedByMarketplaceName(MarketPlaceConstants.MARKETPLACE_NAME_STEAM, PageRequest.of(0, 40));
 
         log.info("Steam games to process {}", gamesToProcess.size());
 
