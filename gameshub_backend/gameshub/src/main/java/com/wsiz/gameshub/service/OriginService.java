@@ -136,7 +136,7 @@ public class OriginService implements GameProviderService<OriginGameDetailsDto> 
 
         try {
             return new BigDecimal(price);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException | NullPointerException e){
             return null;
         }
     }
