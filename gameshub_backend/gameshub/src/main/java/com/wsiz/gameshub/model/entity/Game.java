@@ -2,8 +2,12 @@ package com.wsiz.gameshub.model.entity;
 
 import lombok.*;
 import org.hibernate.annotations.Type;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordField;
 
 import javax.persistence.*;
+import javax.persistence.Index;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity(name = "GAME")
+@Table(indexes = {
+        @Index(name = "game_name_idx", columnList = "name"),
+        @Index(name = "game_loaded_idx", columnList = "marketplaceName, loadedDetailsFromExternalApi")
+})
+@Indexed
 public class Game {
 
     @Id
@@ -21,12 +30,15 @@ public class Game {
     @SequenceGenerator(name = "game_seq", sequenceName = "game_seq", allocationSize = 1)
     private Long id;
 
-    @Column
+    @FullTextField
+    @Column(length = 500)
     private String name;
 
+    @KeywordField
     @Column
     private String externalAppId;
 
+    @KeywordField
     @Column
     private String marketplaceName;
 
@@ -71,9 +83,11 @@ public class Game {
     @ManyToMany
     private List<Category> categories;
 
-    @Column
+    @FullTextField
+    @Column(length = 500)
     private String developer;
 
-    @Column
+    @FullTextField
+    @Column(length = 500)
     private String publisher;
 }

@@ -32,3 +32,9 @@ external-api:
   epic-games:
     api:
       url: https://www.epicgames.com
+
+hibernate:
+  search:
+    default:
+      directory_provider: filesystem
+    indexBase: ./data/index/default

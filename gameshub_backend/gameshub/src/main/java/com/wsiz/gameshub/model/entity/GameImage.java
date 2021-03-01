@@ -11,6 +11,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(indexes = {
+        @Index(name = "game_image_idx", columnList = "game_id")
+})
 public class GameImage {
 
     @Id

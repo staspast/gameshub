@@ -24,7 +24,7 @@ public class OriginUpdateTask implements UpdateTask{
     private final OriginDecorator decorator;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 10000)
     public void updateNonUpdatedGameData(){
         List<Game> gamesToProcess = gamesRepository.findNonLoadedByMarketplaceName(MarketPlaceConstants.MARKETPLACE_NAME_EPIC_ORIGIN, PageRequest.of(0, 10));
 

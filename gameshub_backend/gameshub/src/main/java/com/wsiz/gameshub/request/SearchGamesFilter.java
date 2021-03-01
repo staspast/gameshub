@@ -9,4 +9,6 @@ public class SearchGamesFilter {
 
     private String name;
     private String marketplaceName;
+    private int pageNumber = 0;
+    private int pageSize = 10;
 }
