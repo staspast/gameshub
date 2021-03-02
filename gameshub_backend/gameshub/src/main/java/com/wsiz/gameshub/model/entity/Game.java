@@ -1,5 +1,6 @@
 package com.wsiz.gameshub.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
@@ -54,8 +55,13 @@ public class Game {
     @Column
     private Boolean loadedDetailsFromExternalApi;
 
+    @JsonIgnore
     @Column
     private LocalDateTime addedAt;
+
+    @JsonIgnore
+    @Column
+    private LocalDateTime updatedAt;
 
     @Column
     private String currency;

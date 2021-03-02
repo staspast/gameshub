@@ -8,6 +8,16 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
+  mail:
+    host: localhost
+    port: 25
+    username: username
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+
 server:
   port: 8081
 

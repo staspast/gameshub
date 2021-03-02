@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -19,16 +20,15 @@ public class HumbleBundleDecorator extends GameDecorator{
     @Transactional
     public void decorate(Game game) {
 
-        if(!Boolean.TRUE.equals(game.getLoadedDetailsFromExternalApi())) {
-            HumbleBundleGameDetailsDto detailsDto = humbleBundleService.getGameDetails(game.getExternalAppId());
+        HumbleBundleGameDetailsDto detailsDto = humbleBundleService.getGameDetails(game.getExternalAppId());
 
-            game.setDescription(detailsDto.getDescription());
-            game.setCategories(getCategories(detailsDto.getCategories()));
-            game.setPublisher(detailsDto.getPublisher());
-            game.setDeveloper(detailsDto.getDeveloper());
-            game.setGameImages(getGameImagesForGame(detailsDto.getImages(), game));
-            game.setLoadedDetailsFromExternalApi(true);
-        }
+        game.setDescription(detailsDto.getDescription());
+        game.setCategories(getCategories(detailsDto.getCategories()));
+        game.setPublisher(detailsDto.getPublisher());
+        game.setDeveloper(detailsDto.getDeveloper());
+        game.setGameImages(getGameImagesForGame(detailsDto.getImages(), game));
+        game.setLoadedDetailsFromExternalApi(true);
+        game.setUpdatedAt(LocalDateTime.now());
 
     }
 

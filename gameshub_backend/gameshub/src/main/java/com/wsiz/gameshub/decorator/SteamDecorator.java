@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,25 +29,25 @@ public class SteamDecorator extends GameDecorator{
     @Override
     @Transactional
     public void decorate(Game game) {
-        if (!Boolean.TRUE.equals(game.getLoadedDetailsFromExternalApi())) {
-            SteamGameDetailsDto detailsDto = steamService.getGameDetails(game.getExternalAppId());
+        SteamGameDetailsDto detailsDto = steamService.getGameDetails(game.getExternalAppId());
 
-            game.setCurrency(detailsDto.getCurrency());
-            game.setDiscountPercent(detailsDto.getDiscountPercent());
-            game.setPriceInitial(detailsDto.getPriceInitial());
-            game.setPriceFinal(detailsDto.getPriceFinal());
-            game.setLoadedDetailsFromExternalApi(Boolean.TRUE);
+        game.setCurrency(detailsDto.getCurrency());
+        game.setDiscountPercent(detailsDto.getDiscountPercent());
+        game.setPriceInitial(detailsDto.getPriceInitial());
+        game.setPriceFinal(detailsDto.getPriceFinal());
+        game.setLoadedDetailsFromExternalApi(Boolean.TRUE);
 
-            game.setIsReleased(detailsDto.getIsReleased());
-            game.setIsGame("game".equals(detailsDto.getType()));
-            game.setCategories(detailsDto.getGenres() != null ? getSteamCategories(detailsDto.getGenres()) : null);
-            game.setShortDescription(detailsDto.getShortDescription());
-            game.setDescription(detailsDto.getDescription());
-            game.setMainImageUrl(detailsDto.getMainImageUrl());
-            game.setDeveloper(detailsDto.getDevelopers() != null ? String.join(",", detailsDto.getDevelopers()) : null);
-            game.setPublisher(detailsDto.getPublishers() != null ? String.join(",", detailsDto.getPublishers()) : null);
-            game.setGameImages(detailsDto.getScreenshots() != null ? getSteamGameImagesForGame(detailsDto.getScreenshots(), game) : null);
-        }
+        game.setIsReleased(detailsDto.getIsReleased());
+        game.setIsGame("game".equals(detailsDto.getType()));
+        game.setCategories(detailsDto.getGenres() != null ? getSteamCategories(detailsDto.getGenres()) : null);
+        game.setShortDescription(detailsDto.getShortDescription());
+        game.setDescription(detailsDto.getDescription());
+        game.setMainImageUrl(detailsDto.getMainImageUrl());
+        game.setDeveloper(detailsDto.getDevelopers() != null ? String.join(",", detailsDto.getDevelopers()) : null);
+        game.setPublisher(detailsDto.getPublishers() != null ? String.join(",", detailsDto.getPublishers()) : null);
+        game.setGameImages(detailsDto.getScreenshots() != null ? getSteamGameImagesForGame(detailsDto.getScreenshots(), game) : null);
+        game.setUpdatedAt(LocalDateTime.now());
+
     }
 
     @Override

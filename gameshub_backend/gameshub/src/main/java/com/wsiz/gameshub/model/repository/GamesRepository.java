@@ -16,4 +16,7 @@ public interface GamesRepository extends JpaRepository<Game, Long> {
 
     @Query("SELECT g FROM GAME g WHERE g.marketplaceName = :marketplaceName and g.loadedDetailsFromExternalApi is null")
     List<Game> findNonLoadedByMarketplaceName(String marketplaceName, Pageable pageable);
+
+    @Query("SELECT g FROM GAME g WHERE g.loadedDetailsFromExternalApi = true ORDER BY g.updatedAt asc nulls first ")
+    List<Game> findGamesForUpdate(Pageable pageable);
 }

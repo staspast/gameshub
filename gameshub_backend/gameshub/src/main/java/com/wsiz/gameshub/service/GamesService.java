@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -23,16 +25,21 @@ public class GamesService {
 
     public Page<Game> getGameList(SearchGamesFilter filter){
         Page<Game> games = gamesRepository.search(filter.getName() != null ? filter.getName() : "", filter.getMarketplaceName(), PageRequest.of(filter.getPageNumber(), filter.getPageSize()));
-
-        games.forEach(game -> {
-            gameDecoratorFactory.getDecoratorForMarketplace(game.getMarketplaceName()).decorate(game);
-        });
-
+        decorateUnloadedGames(games.getContent());
         return games;
     }
 
     public Page<Game> searchGamesLucene(SearchGamesFilter filter){
         SearchResult<Game> result = gamesLuceneRepository.search(filter);
+        decorateUnloadedGames(result.hits());
         return new PageImpl<>(result.hits(), PageRequest.of(filter.getPageNumber(), filter.getPageSize()), result.total().hitCount());
+    }
+
+    private void decorateUnloadedGames(List<Game> games){
+        games.forEach(game -> {
+            if(!Boolean.TRUE.equals(game.getLoadedDetailsFromExternalApi())) {
+                gameDecoratorFactory.getDecoratorForMarketplace(game.getMarketplaceName()).decorate(game);
+            }
+        });
     }
 }

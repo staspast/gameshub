@@ -21,7 +21,7 @@ public class NotificationEnquiry {
     @Column
     private String email;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Game game;
 
     @Column

@@ -22,23 +22,22 @@ public class OriginDecorator extends GameDecorator{
     @Override
     @Transactional
     public void decorate(Game game) {
-        if(!Boolean.TRUE.equals(game.getLoadedDetailsFromExternalApi())) {
-            OriginGameDetailsDto detailsDto = originService.getGameDetails(game.getExternalAppId());
+        OriginGameDetailsDto detailsDto = originService.getGameDetails(game.getExternalAppId());
 
-            game.setDescription(detailsDto.getDescription());
-            game.setCategories(getCategories(detailsDto.getCategories()));
-            game.setGameImages(getGameImagesForGame(detailsDto.getImages(), game));
-            game.setDeveloper(detailsDto.getDeveloper());
-            game.setPublisher(detailsDto.getPublisher());
-            game.setPriceFinal(detailsDto.getPrice());
-            game.setPriceInitial(detailsDto.getPrice());
-            game.setDiscountPercent(BigDecimal.ZERO);
-            game.setAddedAt(LocalDateTime.now());
-            game.setCurrency("USD");
-            game.setLoadedDetailsFromExternalApi(Boolean.TRUE);
-            game.setIsGame(true);
-            game.setIsReleased(true);
-        }
+        game.setDescription(detailsDto.getDescription());
+        game.setCategories(getCategories(detailsDto.getCategories()));
+        game.setGameImages(getGameImagesForGame(detailsDto.getImages(), game));
+        game.setDeveloper(detailsDto.getDeveloper());
+        game.setPublisher(detailsDto.getPublisher());
+        game.setPriceFinal(detailsDto.getPrice());
+        game.setPriceInitial(detailsDto.getPrice());
+        game.setDiscountPercent(BigDecimal.ZERO);
+        game.setAddedAt(LocalDateTime.now());
+        game.setCurrency("USD");
+        game.setLoadedDetailsFromExternalApi(Boolean.TRUE);
+        game.setIsGame(true);
+        game.setIsReleased(true);
+        game.setUpdatedAt(LocalDateTime.now());
     }
 
     @Override

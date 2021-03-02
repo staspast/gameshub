@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -18,12 +19,11 @@ public class GogDecorator extends GameDecorator{
     @Override
     @Transactional
     public void decorate(Game game) {
-        if(!Boolean.TRUE.equals(game.getLoadedDetailsFromExternalApi())){
-            GogGameDetailsDto gogGameDetailsDto = gogService.getGameDetails(game.getExternalAppId());
-            game.setDescription(gogGameDetailsDto.getDescription());
-            game.setShortDescription(gogGameDetailsDto.getShortDescription());
-            game.setLoadedDetailsFromExternalApi(true);
-        }
+        GogGameDetailsDto gogGameDetailsDto = gogService.getGameDetails(game.getExternalAppId());
+        game.setDescription(gogGameDetailsDto.getDescription());
+        game.setShortDescription(gogGameDetailsDto.getShortDescription());
+        game.setLoadedDetailsFromExternalApi(true);
+        game.setUpdatedAt(LocalDateTime.now());
     }
 
     @Override
