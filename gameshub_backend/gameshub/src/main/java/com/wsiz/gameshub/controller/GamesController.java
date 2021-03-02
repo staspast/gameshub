@@ -6,6 +6,7 @@ import com.wsiz.gameshub.service.GamesService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,10 @@ public class GamesController {
     @GetMapping("/lucene_search")
     public Page<Game> searchLucene(SearchGamesFilter filter){
         return gamesService.searchGamesLucene(filter);
+    }
+
+    @GetMapping("/get/{id}")
+    public Game search(@PathVariable Long id){
+        return gamesService.getGame(id);
     }
 }

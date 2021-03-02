@@ -1,5 +1,6 @@
 package com.wsiz.gameshub.service;
 
+import com.wsiz.gameshub.exception.ObjectNotFoundException;
 import com.wsiz.gameshub.factory.GameDecoratorFactory;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.model.repository.GamesLuceneRepository;
@@ -41,5 +42,15 @@ public class GamesService {
                 gameDecoratorFactory.getDecoratorForMarketplace(game.getMarketplaceName()).decorate(game);
             }
         });
+    }
+
+    public Game getGame(Long id){
+        Game game = gamesRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, "Game not found"));
+
+        if(!Boolean.TRUE.equals(game.getLoadedDetailsFromExternalApi())) {
+            gameDecoratorFactory.getDecoratorForMarketplace(game.getMarketplaceName()).decorate(game);
+        }
+
+        return game;
     }
 }
