@@ -35,7 +35,7 @@ public class NotificationEnquiryService {
     }
 
     public void sendNotificationEnquiries(){
-        List<NotificationEnquiry> notificationEnquiries = notificationEnquiryRepository.findByStatus(NotificationEnquiryStatus.NOT_SENT, PageRequest.of(0, 10));
+        List<NotificationEnquiry> notificationEnquiries = notificationEnquiryRepository.findToSendByStatus(NotificationEnquiryStatus.NOT_SENT, PageRequest.of(0, 10));
 
         notificationEnquiries.forEach(notificationEnquiry -> {
             Game game = notificationEnquiry.getGame();
