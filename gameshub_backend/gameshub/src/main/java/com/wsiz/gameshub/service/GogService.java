@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -97,9 +99,24 @@ public class GogService implements GameProviderService<GogGameDetailsDto> {
         return respose.getBody() != null ? respose.getBody() : new GogGameDetailsDto();
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<Game> getSpecialOffers() {
-        return new ArrayList<>();
+
+        ResponseEntity<GogGamesListResponseDto> response = restTemplate.getForEntity(apiEmbedUrl + "/games/ajax/filtered?discounted&mediaType=game&page=1&sort=popularity&price=discounted", GogGamesListResponseDto.class);
+
+        List<Game> games = new ArrayList<>();
+
+        response.getBody().getProducts().forEach(gogGameDto -> {
+            Game game = gamesRepository.findByNameAndMarketplaceName(gogGameDto.getName(), MarketPlaceConstants.MARKETPLACE_NAME_GOG);
+            if(game != null){
+                game.setPriceFinal(gogGameDto.getPriceFinal());
+                game.setDiscountPercent(gogGameDto.getDiscountPercent());
+                games.add(game);
+            }
+        });
+
+        return games;
     }
 
 }
