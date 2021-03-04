@@ -1,5 +1,6 @@
 package com.wsiz.gameshub.controller;
 
+import com.wsiz.gameshub.dto.game.GameDto;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.request.SearchGamesFilter;
 import com.wsiz.gameshub.service.GamesService;
@@ -36,7 +37,7 @@ public class GamesController {
     }
 
     @GetMapping("/offers")
-    public List<Game> getSpecialOffers(){
+    public List<GameDto> getSpecialOffers(){
         return gamesService.getSpecialOffers();
     }
 }

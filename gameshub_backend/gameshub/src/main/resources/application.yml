@@ -17,6 +17,9 @@ spring:
       mail:
         smtp:
           auth: true
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
 
 server:
   port: 8081
