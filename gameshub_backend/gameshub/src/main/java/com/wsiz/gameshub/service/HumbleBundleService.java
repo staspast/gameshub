@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.wsiz.gameshub.constant.MarketPlaceConstants;
 import com.wsiz.gameshub.dto.humblebundle.HumbleBundleGameDetailsDto;
 import com.wsiz.gameshub.dto.humblebundle.HumbleBundleGamesListResponseDto;
 import com.wsiz.gameshub.mapper.HumbleBundleMapper;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -123,7 +126,28 @@ public class HumbleBundleService implements GameProviderService<HumbleBundleGame
 
     @Override
     public List<Game> getSpecialOffers() {
-        return new ArrayList<>();
+
+        ResponseEntity<HumbleBundleGamesListResponseDto> response = restTemplate.getForEntity(apiUrl + "/store/api/search?sort=discount&filter=onsale&hmb_source=store_navbar&request=1", HumbleBundleGamesListResponseDto.class);
+
+        List<Game> games = new ArrayList<>();
+
+        response.getBody().getResults().forEach(humbleBundleGameDto -> {
+            Game game = gamesRepository.findByNameAndMarketplaceName(humbleBundleGameDto.getName(), MarketPlaceConstants.MARKETPLACE_NAME_HUMBLE_BUNDLE);
+            if(game != null){
+                game.setPriceFinal(humbleBundleGameDto.getPriceFinal());
+                game.setDiscountPercent(getDiscountPercent(humbleBundleGameDto.getPriceInitial(), humbleBundleGameDto.getPriceFinal()));
+                games.add(game);
+            }
+        });
+
+        return games;
+    }
+
+    private BigDecimal getDiscountPercent(BigDecimal priceInitial, BigDecimal priceFinal){
+        if(priceInitial != null && priceFinal != null){
+            return priceInitial.subtract(priceFinal).divide(priceInitial, 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100));
+        }
+        return null;
     }
 
 }
