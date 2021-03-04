@@ -127,7 +127,7 @@ public class HumbleBundleService implements GameProviderService<HumbleBundleGame
     @Override
     public List<Game> getSpecialOffers() {
 
-        ResponseEntity<HumbleBundleGamesListResponseDto> response = restTemplate.getForEntity(apiUrl + "/store/api/search?sort=discount&filter=onsale&hmb_source=store_navbar&request=1", HumbleBundleGamesListResponseDto.class);
+        ResponseEntity<HumbleBundleGamesListResponseDto> response = restTemplate.getForEntity(apiUrl + "/store/api/search?sort=bestselling&filter=onsale&hmb_source=store_navbar&request=1", HumbleBundleGamesListResponseDto.class);
 
         List<Game> games = new ArrayList<>();
 
