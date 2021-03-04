@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.wsiz.gameshub.constant.MarketPlaceConstants;
 import com.wsiz.gameshub.dto.epic.EpicGameDetailsDto;
 import com.wsiz.gameshub.dto.epic.EpicGamesListResponseDto;
 import com.wsiz.gameshub.mapper.EpicGamesMapper;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -35,6 +38,7 @@ public class EpicGamesService implements GameProviderService<EpicGameDetailsDto>
     private String apiUrl;
 
     private static final Map<String, String> GRAPHQL_QUERY = new HashMap<>();
+    private static final Map<String, String> GRAPHQL_QUERY_DISCOUNT = new HashMap<>();
     private final RestTemplate restTemplate;
     private final GamesRepository gamesRepository;
     private final GameImageRepository gameImageRepository;
@@ -59,6 +63,9 @@ public class EpicGamesService implements GameProviderService<EpicGameDetailsDto>
 
         GRAPHQL_QUERY.put("query", "query searchStoreQuery($allowCountries: String, $category: String, $count: Int, $country: String!, $keywords: String, $locale: String, $namespace: String, $itemNs: String, $sortBy: String, $sortDir: String, $start: Int, $tag: String, $releaseDate: String, $withPrice: Boolean = false, $withPromotions: Boolean = false, $priceRange: String, $freeGame: Boolean, $onSale: Boolean, $effectiveDate: String) {  Catalog {    searchStore(      allowCountries: $allowCountries      category: $category      count: $count      country: $country      keywords: $keywords      locale: $locale      namespace: $namespace      itemNs: $itemNs      sortBy: $sortBy      sortDir: $sortDir      releaseDate: $releaseDate      start: $start      tag: $tag      priceRange: $priceRange      freeGame: $freeGame      onSale: $onSale      effectiveDate: $effectiveDate    ) {      elements {        title        id        namespace        description        effectiveDate        keyImages {          type          url        }        currentPrice        seller {          id          name        }        productSlug        urlSlug        url        tags {          id        }        items {          id          namespace        }        customAttributes {          key          value        }        categories {          path        }        price(country: $country) @include(if: $withPrice) {          totalPrice {            discountPrice            originalPrice            voucherDiscount            discount            currencyCode            currencyInfo {              decimals            }            fmtPrice(locale: $locale) {              originalPrice              discountPrice              intermediatePrice            }          }          lineOffers {            appliedRules {              id              endDate              discountSetting {                discountType              }            }          }        }        promotions(category: $category) @include(if: $withPromotions) {          promotionalOffers {            promotionalOffers {              startDate              endDate              discountSetting {                discountType                discountPercentage              }            }          }          upcomingPromotionalOffers {            promotionalOffers {              startDate              endDate              discountSetting {                discountType                discountPercentage              }            }          }        }      }      paging {        count        total      }    }  }}");
         GRAPHQL_QUERY.put("variables", "{\"category\":\"games/edition/base|bundles/games|editors|software/edition/base\",\"count\":1000,\"country\":\"PL\",\"keywords\":\"\",\"locale\":\"en-US\",\"sortBy\":\"releaseDate\",\"sortDir\":\"DESC\",\"allowCountries\":\"PL\",\"start\":0,\"tag\":\"\",\"releaseDate\":\"[,2021-02-27T12:21:26.125Z]\",\"withPrice\":true}");
+
+        GRAPHQL_QUERY_DISCOUNT.put("query", "query searchStoreQuery($allowCountries: String, $category: String, $count: Int, $country: String!, $keywords: String, $locale: String, $namespace: String, $itemNs: String, $sortBy: String, $sortDir: String, $start: Int, $tag: String, $releaseDate: String, $withPrice: Boolean = false, $withPromotions: Boolean = false, $priceRange: String, $freeGame: Boolean, $onSale: Boolean, $effectiveDate: String) {  Catalog {    searchStore(      allowCountries: $allowCountries      category: $category      count: $count      country: $country      keywords: $keywords      locale: $locale      namespace: $namespace      itemNs: $itemNs      sortBy: $sortBy      sortDir: $sortDir      releaseDate: $releaseDate      start: $start      tag: $tag      priceRange: $priceRange      freeGame: $freeGame      onSale: $onSale      effectiveDate: $effectiveDate    ) {      elements {        title        id        namespace        description        effectiveDate        keyImages {          type          url        }        currentPrice        seller {          id          name        }        productSlug        urlSlug        url        tags {          id        }        items {          id          namespace        }        customAttributes {          key          value        }        categories {          path        }        price(country: $country) @include(if: $withPrice) {          totalPrice {            discountPrice            originalPrice            voucherDiscount            discount            currencyCode            currencyInfo {              decimals            }            fmtPrice(locale: $locale) {              originalPrice              discountPrice              intermediatePrice            }          }          lineOffers {            appliedRules {              id              endDate              discountSetting {                discountType              }            }          }        }        promotions(category: $category) @include(if: $withPromotions) {          promotionalOffers {            promotionalOffers {              startDate              endDate              discountSetting {                discountType                discountPercentage              }            }          }          upcomingPromotionalOffers {            promotionalOffers {              startDate              endDate              discountSetting {                discountType                discountPercentage              }            }          }        }      }      paging {        count        total      }    }  }}");
+        GRAPHQL_QUERY_DISCOUNT.put("variables", "{\"category\":\"games/edition/base|bundles/games|editors|software/edition/base\",\"count\":30,\"country\":\"PL\",\"keywords\":\"\",\"locale\":\"en-US\",\"sortBy\":\"releaseDate\",\"sortDir\":\"DESC\",\"allowCountries\":\"PL\",\"start\":0,\"tag\":\"\",\"releaseDate\":\"[,2021-02-27T12:21:26.125Z]\",\"withPrice\":true, \"onSale\":true}");
     }
 
     @Override
@@ -119,9 +126,24 @@ public class EpicGamesService implements GameProviderService<EpicGameDetailsDto>
         return detailsDto;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public List<Game> getSpecialOffers() {
-        return new ArrayList<>();
+        ResponseEntity<EpicGamesListResponseDto> response = restTemplate.postForEntity(apiUrl + "/graphql", new HttpEntity<>(GRAPHQL_QUERY_DISCOUNT), EpicGamesListResponseDto.class);
+
+        List<Game> games = new ArrayList<>();
+
+        response.getBody().getGamesList().forEach(epicGameDto -> {
+            Game game = gamesRepository.findByNameAndMarketplaceName(epicGameDto.getTitle(), MarketPlaceConstants.MARKETPLACE_NAME_EPIC_GAMES);
+            if(game != null){
+                game.setDiscountPercent(epicGameDto.getDiscountPercent());
+                game.setPriceFinal(epicGameDto.getCurrentPrice());
+                game.setPriceInitial(epicGameDto.getPrice());
+                games.add(game);
+            }
+        });
+
+        return games;
     }
 
 }
