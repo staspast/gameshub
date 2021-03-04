@@ -131,6 +131,11 @@ public class OriginService implements GameProviderService<OriginGameDetailsDto> 
 
     }
 
+    @Override
+    public List<Game> getSpecialOffers() {
+        return new ArrayList<>();
+    }
+
     private BigDecimal extractPrice(String htmlPage){
         String price = StringUtils.substringBetween(htmlPage, "price\":", ",");
 

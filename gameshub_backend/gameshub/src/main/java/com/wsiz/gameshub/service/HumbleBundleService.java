@@ -121,4 +121,9 @@ public class HumbleBundleService implements GameProviderService<HumbleBundleGame
         }
     }
 
+    @Override
+    public List<Game> getSpecialOffers() {
+        return new ArrayList<>();
+    }
+
 }

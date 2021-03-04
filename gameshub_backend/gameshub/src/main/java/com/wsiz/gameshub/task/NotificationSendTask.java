@@ -26,7 +26,7 @@ public class NotificationSendTask {
 
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 10000)
     public void sendGameNotifications(){
         notificationEnquiryService.sendNotificationEnquiries();
     }

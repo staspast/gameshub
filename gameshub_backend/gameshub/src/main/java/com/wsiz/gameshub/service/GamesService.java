@@ -13,6 +13,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,6 +26,7 @@ public class GamesService {
     private final GamesRepository gamesRepository;
     private final GameDecoratorFactory gameDecoratorFactory;
     private final GamesLuceneRepository gamesLuceneRepository;
+    private final List<GameProviderService<?>> gameProviderServices;
 
     public Page<Game> getGameList(SearchGamesFilter filter){
         Page<Game> games = gamesRepository.search(filter.getName() != null ? filter.getName() : "", filter.getMarketplaceName(), PageRequest.of(filter.getPageNumber(), filter.getPageSize()));
@@ -52,5 +56,15 @@ public class GamesService {
         }
 
         return game;
+    }
+
+    public List<Game> getSpecialOffers(){
+        List<Game> games = new ArrayList<>();
+
+        gameProviderServices.forEach(service -> {
+            games.addAll(service.getSpecialOffers());
+        });
+
+        return games;
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,6 +95,11 @@ public class GogService implements GameProviderService<GogGameDetailsDto> {
     public GogGameDetailsDto getGameDetails(String externalGameId) {
         ResponseEntity<GogGameDetailsDto> respose = restTemplate.getForEntity(apiUrl + "/products/" + externalGameId + "?expand=description", GogGameDetailsDto.class);
         return respose.getBody() != null ? respose.getBody() : new GogGameDetailsDto();
+    }
+
+    @Override
+    public List<Game> getSpecialOffers() {
+        return new ArrayList<>();
     }
 
 }

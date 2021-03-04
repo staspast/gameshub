@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/games")
@@ -31,5 +33,10 @@ public class GamesController {
     @GetMapping("/get/{id}")
     public Game search(@PathVariable Long id){
         return gamesService.getGame(id);
+    }
+
+    @GetMapping("/offers")
+    public List<Game> getSpecialOffers(){
+        return gamesService.getSpecialOffers();
     }
 }

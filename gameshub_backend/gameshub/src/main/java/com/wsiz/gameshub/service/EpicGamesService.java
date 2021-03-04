@@ -119,4 +119,9 @@ public class EpicGamesService implements GameProviderService<EpicGameDetailsDto>
         return detailsDto;
     }
 
+    @Override
+    public List<Game> getSpecialOffers() {
+        return new ArrayList<>();
+    }
+
 }

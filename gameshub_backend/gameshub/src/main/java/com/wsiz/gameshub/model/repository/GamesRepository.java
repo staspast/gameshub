@@ -19,4 +19,6 @@ public interface GamesRepository extends JpaRepository<Game, Long> {
 
     @Query("SELECT g FROM GAME g WHERE g.loadedDetailsFromExternalApi = true ORDER BY g.updatedAt asc nulls first ")
     List<Game> findGamesForUpdate(Pageable pageable);
+
+    Game findByNameAndMarketplaceName(String name, String marketplaceName);
 }
