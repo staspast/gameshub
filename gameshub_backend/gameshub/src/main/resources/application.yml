@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gameshub
+    username: postgres
+    password: admin
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  mail:
+    host: localhost
+    port: 25
+    username: username
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+
+server:
+  port: 8081
+
+external-api:
+  steam:
+    url: https://api.steampowered.com
+    store:
+      url: https://store.steampowered.com
+  gog:
+    embed:
+      url: https://embed.gog.com
+    api:
+      url: https://api.gog.com
+  humblebundle:
+    api:
+      url: https://www.humblebundle.com
+  origin:
+    api:
+      url: https://api3.origin.com
+    store:
+      url: https://www.origin.com
+  epic-games:
+    api:
+      url: https://www.epicgames.com
+
+hibernate:
+  search:
+    default:
+      directory_provider: filesystem
+    indexBase: ./data/index/default
