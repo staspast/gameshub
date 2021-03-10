@@ -1,0 +1,17 @@
+.navbar {
+  padding: 16px;
+  border-bottom: 1px solid #e4e4e4;
+  width: 100%;
+}
+
+.search {
+  width: 240px;
+  margin-left: 32px;
+
+  input {
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: 1px solid #e4e4e4;
+  }
+}
