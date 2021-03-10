@@ -86,7 +86,7 @@ public class GogService implements GameProviderService<GogGameDetailsDto> {
 
     private List<GameImage> getGameImagesForGame(List<String> externalImages, Game game){
         List<GameImage> images = externalImages.stream().map(dto -> GameImage.builder()
-                .imageUrl(dto.replace("//", "") + ".jpg")
+                .imageUrl("https://" + dto.replace("//", "") + ".jpg")
                 .game(game).build())
                 .collect(Collectors.toList());
         gameImageRepository.saveAll(images);

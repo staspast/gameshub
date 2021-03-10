@@ -3,9 +3,10 @@ package com.wsiz.gameshub.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Type;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordField;
+import org.hibernate.search.engine.backend.types.Projectable;
+import org.hibernate.search.engine.backend.types.Sortable;
+import org.hibernate.search.mapper.pojo.automaticindexing.ReindexOnUpdate;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
 
 import javax.persistence.*;
 import javax.persistence.Index;
@@ -32,7 +33,7 @@ public class Game {
     private Long id;
 
     @FullTextField
-    @Column(length = 500)
+    @Column(length = 2000)
     private String name;
 
     @KeywordField
@@ -46,6 +47,7 @@ public class Game {
     @Column
     private BigDecimal priceInitial;
 
+    @GenericField(projectable = Projectable.YES, sortable = Sortable.YES)
     @Column
     private BigDecimal priceFinal;
 
@@ -86,14 +88,22 @@ public class Game {
     @Column(length = 4000)
     private String shortDescription;
 
+    @IndexingDependency(reindexOnUpdate = ReindexOnUpdate.SHALLOW)
+    @IndexedEmbedded
     @ManyToMany
     private List<Category> categories;
 
     @FullTextField
-    @Column(length = 500)
+    @Column(length = 2000)
     private String developer;
 
     @FullTextField
-    @Column(length = 500)
+    @Column(length = 2000)
     private String publisher;
+
+    @Column(length = 2000)
+    private String slug;
+
+    @Column(length = 4000)
+    private String redirectUrl;
 }

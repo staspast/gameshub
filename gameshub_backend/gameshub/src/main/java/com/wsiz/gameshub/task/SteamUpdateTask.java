@@ -23,7 +23,7 @@ public class SteamUpdateTask implements UpdateTask{
     private final SteamDecorator decorator;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-//    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 60000)
     public void updateNonUpdatedGameData(){
         List<Game> gamesToProcess = gamesRepository.findNonLoadedByMarketplaceName(MarketPlaceConstants.MARKETPLACE_NAME_STEAM, PageRequest.of(0, 40));
 
