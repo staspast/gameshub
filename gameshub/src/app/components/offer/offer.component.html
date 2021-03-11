@@ -1,0 +1,26 @@
+<ng-container *ngIf="offers.length">
+  <div *ngFor="let item of offers">
+    <div class="card" (click)="goToDetails(item)" fxLayout="row" fxLayoutAlign="start start">
+      <div class="card__image">
+        <img mat-card-image src="{{item.mainImageUrl}}" alt="">
+      </div>
+
+      <div>
+        <div class="card__content">
+          <div class="card__name">{{item.name}}</div>
+
+          <div fxLayout="row">
+            <div class="card__price">{{item.priceFinal}}</div>
+            <div class="card__currency">{{item.currency}}</div>
+          </div>
+        </div>
+
+        <div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-empty-state *ngIf="!offers.length"></app-empty-state>
+</ng-container>

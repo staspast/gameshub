@@ -1,0 +1,62 @@
+<div class="container">
+  <div *ngIf="offer" class="details">
+    <div fxLayout="row" class="details__container">
+      <div class="details__main-image" fxLayoutAlign="center center" fxFlex="35">
+        <img src="{{offer.mainImageUrl}}" alt="">
+      </div>
+
+      <div class="details__information" fxFlex="65">
+        <div class="details__marketplace">Platforma: {{offer.marketplaceName}}</div>
+        <div class="details__name">{{offer.name}}</div>
+        <div class="details__short-description" [innerHTML]="offer.shortDescription"></div>
+      </div>
+
+      <div class="details__price">
+        <div class="details__price-final">
+          <span>{{offer.priceFinal}}</span>
+          <span class="details__currency">{{offer.currency}}</span>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="details__price-initial">{{offer.priceInitial}} {{offer.currency}}</div>
+
+          <div class="details__discount">
+            <div class="details__discount-percent">{{offer.discountPercent}}%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" class="details__container">
+      <div class="details__title" fxFlex="35">Opis produktu</div>
+
+      <div fxFlex="65">
+        <div class="details__description" [innerHTML]="offer.description"></div>
+      </div>
+    </div>
+
+    <div fxLayout="row" class="details__container">
+      <div class="details__title" fxFlex="35">Galeria</div>
+
+      <div fxFlex="65">
+        <div class="details__slider">
+          <swiper class="swiper-container"
+                  [config]="configSwiper">
+            <div *ngFor="let item of offer.gameImages" fxLayout="row" fxLayoutAlign="center center">
+              <img src="{{item.imageUrl}}" alt="Image">
+            </div>
+          </swiper>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <div class="details__title">Porównaj oferty</div>
+
+      <div>
+        <app-offer [offers]="offerFromOtherStore"></app-offer>
+      </div>
+    </div>
+  </div>
+</div>

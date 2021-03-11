@@ -1,0 +1,49 @@
+<div class="filters">
+  <div fxLayout="row" fxLayoutAlign="start start" class="filters__title">Szukaj</div>
+
+  <form [formGroup]="searchForm" class="filters__fields">
+    <div class="filters__field field__search">
+      <input formControlName="search" placeholder="Wyszukaj grę">
+    </div>
+
+    <div class="filters__field field__search" fxLayoutGap="24px">
+      <button mat-raised-button color="primary" (click)="search()" fxFlex="50">Wyszukaj</button>
+      <button mat-raised-button color="accent" (click)="clear()" fxFlex="50">Wyczyść</button>
+    </div>
+  </form>
+</div>
+
+<div class="filters">
+  <div fxLayout="row" fxLayoutAlign="start start" class="filters__title">Filtry</div>
+
+  <div class="filters__fields">
+    <div class="filters__field">
+      <div fxLayout="row" fxLayoutAlign="start start" class="filters__field--subtitle">Kategoria</div>
+      <div></div>
+    </div>
+
+    <div class="filters__field">
+      <div fxLayout="row" fxLayoutAlign="start start" class="filters__field--subtitle">Cena</div>
+
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <input placeholder="Od">
+        <input placeholder="Do">
+      </div>
+    </div>
+
+    <div class="filters__field">
+      <div fxLayout="row" fxLayoutAlign="start start" class="filters__field--subtitle">Kategoria</div>
+      <div></div>
+    </div>
+
+    <div class="filters__field">
+      <div fxLayout="row" fxLayoutAlign="start start" class="filters__field--subtitle">Kategoria</div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="filters__field field__search" fxLayoutGap="24px">
+    <button mat-raised-button color="primary" (click)="search()" fxFlex="50">Wyszukaj</button>
+    <button mat-raised-button color="accent" (click)="clear()" fxFlex="50">Wyczyść</button>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+.card {
+  //background-color: #f7f7f7;
+  margin: 16px 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 16px;
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+
+  &:hover {
+    box-shadow: rgb(0 0 0 / 28%) 0 0 10px 0;
+  }
+
+  &__image {
+    margin-right: 32px;
+    max-width: 260px;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &__name {
+    font-size: 22px;
+    line-height: 42px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  &__price {
+    font-size: 18px;
+  }
+
+  &__content {
+    text-align: left;
+  }
+
+  &__currency {
+    font-size: 12px;
+    margin-left: 2px;
+    top: -2px;
+    position: relative;
+  }
+}

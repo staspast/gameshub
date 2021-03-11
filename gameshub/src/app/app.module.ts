@@ -3,12 +3,11 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './components/home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {NavbarComponent} from './common/navbar/navbar.component';
-import {LogoComponent} from './common/logo/logo.component';
-import {CardDetailsComponent} from './common/card-details/card-details.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {LogoComponent} from './components/logo/logo.component';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -16,6 +15,17 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
+import {HttpClientModule} from '@angular/common/http';
+import {GamehubService} from './services/gamehub.service';
+import {TruncatePipe} from './components/pipes/truncate.pipe';
+import {MatButtonModule} from '@angular/material/button';
+import {DetailsComponent} from './components/details/details.component';
+import {SwiperModule} from 'ngx-swiper-wrapper';
+import {OfferComponent} from './components/offer/offer.component';
+import {EmptyStateComponent} from './components/empty-state/empty-state.component';
+import {FiltersComponent} from './components/filters/filters.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -23,7 +33,11 @@ import {MatCardModule} from '@angular/material/card';
     HomeComponent,
     NavbarComponent,
     LogoComponent,
-    CardDetailsComponent,
+    TruncatePipe,
+    DetailsComponent,
+    OfferComponent,
+    EmptyStateComponent,
+    FiltersComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,10 +47,16 @@ import {MatCardModule} from '@angular/material/card';
     MatFormFieldModule,
     MatIconModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    HttpClientModule,
+    MatButtonModule,
+    SwiperModule,
+    ReactiveFormsModule,
+    MatPaginatorModule
   ],
   providers: [
-    MatIconRegistry
+    MatIconRegistry,
+    GamehubService,
   ],
   bootstrap: [AppComponent]
 })

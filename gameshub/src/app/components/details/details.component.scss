@@ -1,0 +1,141 @@
+.details,
+::ng-deep .details {
+  padding: 16px 0;
+
+  &__main-image {
+    padding-right: 32px;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  &__container {
+    position: relative;
+    padding: 16px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  &__name {
+    font-size: 32px;
+    line-height: 42px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  &__short-description {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 16px;
+
+    img, video {
+      display: none;
+    }
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 16px;
+
+    img {
+      width: 100%;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__price {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+
+  &__discount {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgb(221, 48, 28);
+  }
+
+  &__discount-percent {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  &__marketplace {
+    font-size: 12px;
+    line-height: 26px;
+    min-height: 26px;
+    text-align: left;
+    text-transform: uppercase;
+    color: #a7a7a7;
+    font-weight: 500;
+  }
+
+  &__price-final {
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  &__price-initial {
+    text-decoration: line-through;
+    margin-right: 8px;
+  }
+
+  &__title {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-right: 16px;
+  }
+
+  &__slider {
+    height: 374px;
+    padding-right: 16px;
+    margin-bottom: 16px;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  &__currency {
+    font-size: 12px;
+    margin-left: 2px;
+    top: -8px;
+    position: relative;
+  }
+}
+
+.swiper-container,
+:host ::ng-deep .swiper-container {
+  padding-bottom: 24px;
+
+  .swiper-pagination {
+    bottom: -8px;
+    text-align: center;
+    z-index: 2;
+
+    .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+      border: none !important;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, .2);
+      vertical-align: middle;
+      opacity: 1 !important;
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: #1D85FF;
+    }
+  }
+}
