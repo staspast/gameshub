@@ -74,9 +74,8 @@ public class SteamService implements GameProviderService<SteamGameDetailsDto> {
 
         SteamGameDetailsDto detailsDto = new SteamGameDetailsDto();
 
-        ResponseEntity<String> respose = restTemplate.getForEntity(storeUrl + "/api/appdetails?appids=" + externalGameId, String.class);
-
         try {
+            ResponseEntity<String> respose = restTemplate.getForEntity(storeUrl + "/api/appdetails?appids=" + externalGameId, String.class);
             JSONObject jo = new JSONObject(respose.getBody());
             JSONObject statusObject = new JSONObject(jo.getString(String.valueOf(externalGameId)));
 
@@ -84,7 +83,7 @@ public class SteamService implements GameProviderService<SteamGameDetailsDto> {
                 ObjectMapper mapper = new ObjectMapper();
                 detailsDto = mapper.readValue(statusObject.getString("data"), SteamGameDetailsDto.class);
             }
-        } catch (JSONException | JsonProcessingException | NullPointerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

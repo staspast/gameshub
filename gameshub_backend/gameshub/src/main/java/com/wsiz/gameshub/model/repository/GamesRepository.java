@@ -21,4 +21,7 @@ public interface GamesRepository extends JpaRepository<Game, Long> {
     List<Game> findGamesForUpdate(Pageable pageable);
 
     Game findByNameAndMarketplaceName(String name, String marketplaceName);
+
+    @Query("SELECT g FROM GAME g WHERE (:name is null or g.name = :name) and (:marketplaceName is null or g.marketplaceName != :marketplaceName)")
+    List<Game> searchComparableGames(@Param("name") String name, @Param("marketplaceName") String marketplaceName);
 }

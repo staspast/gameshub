@@ -32,6 +32,7 @@ public class GogGameDto {
     private String image;
     private List<String> genres;
     private Boolean isGame;
+    private String slug;
 
     @JsonProperty("price")
     private void unpackFromNestedJson(Map<String, String> priceOverview){

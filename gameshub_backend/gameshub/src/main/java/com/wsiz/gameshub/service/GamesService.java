@@ -3,10 +3,12 @@ package com.wsiz.gameshub.service;
 import com.wsiz.gameshub.dto.game.GameDto;
 import com.wsiz.gameshub.exception.ObjectNotFoundException;
 import com.wsiz.gameshub.factory.GameDecoratorFactory;
+import com.wsiz.gameshub.factory.GameProviderFactory;
 import com.wsiz.gameshub.mapper.GameEntityToDtoMapper;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.model.repository.GamesLuceneRepository;
 import com.wsiz.gameshub.model.repository.GamesRepository;
+import com.wsiz.gameshub.request.SearchCompareGamesFilter;
 import com.wsiz.gameshub.request.SearchGamesFilter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.search.engine.search.query.SearchResult;
@@ -27,7 +29,7 @@ public class GamesService {
     private final GamesRepository gamesRepository;
     private final GameDecoratorFactory gameDecoratorFactory;
     private final GamesLuceneRepository gamesLuceneRepository;
-    private final List<GameProviderService<?>> gameProviderServices;
+    private final GameProviderFactory gameProviderFactory;
     private final GameEntityToDtoMapper gameMapper;
 
     public Page<Game> getGameList(SearchGamesFilter filter){
@@ -60,14 +62,17 @@ public class GamesService {
         return game;
     }
 
-    @Cacheable(value = "offersCache")
-    public List<GameDto> getSpecialOffers(){
-        List<Game> games = new ArrayList<>();
+    @Cacheable(value = "offersCache", key = "#marketplaceName")
+    public List<GameDto> getSpecialOffers(String marketplaceName){
 
-        gameProviderServices.forEach(service -> {
-            games.addAll(service.getSpecialOffers());
-        });
+        List<Game> games = new ArrayList<>(gameProviderFactory.getProviderForMarketplace(marketplaceName).getSpecialOffers());
 
         return gameMapper.mapList(games);
+    }
+
+    public List<Game> compareWithStore(SearchCompareGamesFilter filter){
+        List<Game> games = gamesRepository.searchComparableGames(filter.getName() != null ? filter.getName() : "", filter.getMarketplaceName());
+        decorateUnloadedGames(games);
+        return games;
     }
 }

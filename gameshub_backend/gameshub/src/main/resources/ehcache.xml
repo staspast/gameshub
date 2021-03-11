@@ -9,7 +9,7 @@
 
     <cache-template name="heap-cache">
         <expiry>
-            <ttl unit="seconds">300</ttl>
+            <ttl unit="seconds">3000</ttl>
         </expiry>
         <resources>
             <heap unit="entries">2000</heap>

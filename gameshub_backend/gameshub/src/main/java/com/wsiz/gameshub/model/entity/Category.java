@@ -1,8 +1,10 @@
 package com.wsiz.gameshub.model.entity;
 
 import lombok.*;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordField;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "CATEGORY")
 @Getter
@@ -17,6 +19,7 @@ public class Category {
     @SequenceGenerator(name = "category_seq", sequenceName = "category_seq", allocationSize = 1)
     private Long id;
 
+    @KeywordField
     @Column
     private String name;
 
@@ -25,4 +28,7 @@ public class Category {
 
     @Column
     private Long externalId;
+
+    @ManyToMany
+    private List<Game> games;
 }

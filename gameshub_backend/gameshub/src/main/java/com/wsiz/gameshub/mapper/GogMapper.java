@@ -26,6 +26,7 @@ public class GogMapper implements GameMapper<GogGameDto, Game> {
                 .developer(source.getDeveloper())
                 .publisher(source.getPublisher())
                 .mainImageUrl(source.getImage() != null ? source.getImage().replace("//", "") + ".jpg" : null)
+                .slug(source.getSlug())
                 .build();
     }
 

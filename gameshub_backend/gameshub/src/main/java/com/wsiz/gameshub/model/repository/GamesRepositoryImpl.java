@@ -32,6 +32,15 @@ public class GamesRepositoryImpl implements GamesLuceneRepository{
                     if(filter.getMarketplaceName() != null){
                         bool.must(game.match().field("marketplaceName").matching(filter.getMarketplaceName()));
                     }
+                    if(filter.getPriceFrom() != null){
+                        bool.must(game.range().field("priceFinal").atLeast(filter.getPriceFrom()));
+                    }
+                    if(filter.getPriceTo() != null){
+                        bool.must(game.range().field("priceFinal").lessThan(filter.getPriceTo()));
+                    }
+                    if(filter.getCategoryName() != null){
+                        bool.must(game.match().field("categories.name").matching(filter.getCategoryName()));
+                    }
                 }))
                 .fetch(filter.getPageNumber(), filter.getPageSize());
     }

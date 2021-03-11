@@ -2,14 +2,12 @@ package com.wsiz.gameshub.controller;
 
 import com.wsiz.gameshub.dto.game.GameDto;
 import com.wsiz.gameshub.model.entity.Game;
+import com.wsiz.gameshub.request.SearchCompareGamesFilter;
 import com.wsiz.gameshub.request.SearchGamesFilter;
 import com.wsiz.gameshub.service.GamesService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,7 +35,12 @@ public class GamesController {
     }
 
     @GetMapping("/offers")
-    public List<GameDto> getSpecialOffers(){
-        return gamesService.getSpecialOffers();
+    public List<GameDto> getSpecialOffers(@RequestParam String marketplaceName){
+        return gamesService.getSpecialOffers(marketplaceName);
+    }
+
+    @GetMapping("/compare_with_other_stores")
+    public List<Game> compareWithStore(SearchCompareGamesFilter filter){
+        return gamesService.compareWithStore(filter);
     }
 }
