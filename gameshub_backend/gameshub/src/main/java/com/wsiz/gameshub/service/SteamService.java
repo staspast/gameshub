@@ -104,6 +104,7 @@ public class SteamService implements GameProviderService<SteamGameDetailsDto> {
                 DomNode discount = discountedGameDiv.querySelector(".search_discount");
                 DomNode price = discountedGameDiv.querySelector(".search_price");
 
+                log.info("GAME {}", title.getTextContent());
                 Game game = gamesRepository.findByNameAndMarketplaceName(title.getTextContent(), MarketPlaceConstants.MARKETPLACE_NAME_STEAM);
                 if(game != null){
                     BigDecimal discountBigDecimal = getDiscountFromString(discount.getTextContent());
