@@ -1,26 +1,59 @@
-<ng-container *ngIf="offers.length">
+<ng-container *ngIf="offers && offers.length">
   <div *ngFor="let item of offers">
-    <div class="card" (click)="goToDetails(item)" fxLayout="row" fxLayoutAlign="start start">
-      <div class="card__image">
+    <div class="offer" (click)="goToDetails(item)" fxLayout="row" fxLayoutAlign="start start">
+      <div class="offer__image" fxFlex="33">
         <img mat-card-image src="{{item.mainImageUrl}}" alt="">
       </div>
 
-      <div>
-        <div class="card__content">
-          <div class="card__name">{{item.name}}</div>
+      <div class="offer__content" fxFlex="66">
+        <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between start">
+          <div fxLayout="row" fxLayoutAlign="space-between start" style="width: 100%;">
+            <div class="offer__name">{{item.name}}</div>
+
+            <button mat-button color="accent"
+                    class="offer__notification"
+                    (click)="openDialog(item); $event.stopPropagation();"
+                    fxHide.gt-xs>
+              <mat-icon svgIcon="grade"></mat-icon>
+            </button>
+          </div>
 
           <div fxLayout="row">
-            <div class="card__price">{{item.priceFinal}}</div>
-            <div class="card__currency">{{item.currency}}</div>
+            <div fxLayout="row">
+              <div class="offer__price">{{item.priceFinal}}</div>
+              <div class="offer__currency">{{item.currency}}</div>
+            </div>
+
+            <button mat-button color="accent"
+                    class="offer__notification"
+                    (click)="openDialog(item); $event.stopPropagation();"
+                    fxHide fxShow.gt-xs>
+              <mat-icon svgIcon="grade"></mat-icon>
+            </button>
           </div>
         </div>
 
-        <div>
+        <div class="offer__categories" fxHide fxShow.gt-sm fxLayout="row" fxLayoutGap="4px" *ngIf="item.categories">
+          <div class="offer__label">Kategorie:</div>
 
+          <div fxLayout="row wrap" fxLayoutGap="4px">
+            <div *ngFor="let category of item.categories; let last = last;">
+              <span>{{category.name}}</span>
+              <span *ngIf="!last">,</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="offer__description" fxHide fxShow.gt-xs fxLayout="row" fxLayoutGap="4px"
+             *ngIf="item.shortDescription">
+          <div class="offer__label">Opis:</div>
+          <div [innerHTML]="item.shortDescription | limitTo: 140"></div>
         </div>
       </div>
     </div>
   </div>
+</ng-container>
 
-  <app-empty-state *ngIf="!offers.length"></app-empty-state>
+<ng-container *ngIf="!offers || !offers.length">
+  <app-empty-state></app-empty-state>
 </ng-container>

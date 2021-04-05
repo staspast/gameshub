@@ -1,10 +1,10 @@
 <div class="container home">
-  <div fxLayout="row" fxLayoutAlign="start start">
-    <div fxFlex="25">
-      <app-filters (searchEvent)="searchResult($event)"></app-filters>
+  <div fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign.gt-md="start start">
+    <div fxFlex.gt-md="25">
+      <app-filters (searchEvent)="searchResult($event)" #filters></app-filters>
     </div>
 
-    <div fxFlex="75" class="home__content" *ngIf="!searchOffers.length">
+    <div fxFlex.gt-md="75" class="home__content" *ngIf="!searchOffers.totalElements">
       <mat-tab-group mat-align-tabs="start dynamicHeight"
                      (selectedTabChange)="changeStore($event)">
         <mat-tab label="{{item}}" *ngFor="let item of ['Steam', 'GOG', 'Origin', 'Epic Games', 'Humble Bundle']">
@@ -13,18 +13,19 @@
       </mat-tab-group>
     </div>
 
-    <div fxFlex="75" class="home__content" *ngIf="searchOffers.length">
+    <div fxFlex="75" class="home__content" *ngIf="searchOffers.totalElements">
       <div class="home__title">Wynik wyszukiwania</div>
 
-      <app-offer [offers]="searchOffers"></app-offer>
+      <app-offer [offers]="searchOffers.content"></app-offer>
     </div>
   </div>
 
-<!--  <div class="home__paginator">-->
-<!--    <mat-paginator [length]="100"-->
-<!--                   [pageSize]="10"-->
-<!--                   [pageSizeOptions]="[5, 10, 25, 100]">-->
-<!--    </mat-paginator>-->
-<!--  </div>-->
+  <div class="home__paginator" *ngIf="searchOffers.totalElements">
+    <mat-paginator [length]="searchOffers.totalElements"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="handlePageEvent($event)">
+    </mat-paginator>
+  </div>
 </div>
 

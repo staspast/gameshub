@@ -1,44 +1,141 @@
-.card {
-  //background-color: #f7f7f7;
+.offer {
+  background-color: #fff;
   margin: 16px 2px;
   border-radius: 5px;
   cursor: pointer;
   overflow: hidden;
-  padding: 16px;
   box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+  position: relative;
 
   &:hover {
     box-shadow: rgb(0 0 0 / 28%) 0 0 10px 0;
   }
 
   &__image {
-    margin-right: 32px;
-    max-width: 260px;
+    line-height: 0;
+    text-align: left;
+    overflow: hidden;
+    margin-right: 8px;
+
+    @media(min-width: 960px) {
+      height: 138px;
+      margin-right: 16px;
+    }
 
     img {
       max-width: 100%;
+      max-height: 100%;
     }
   }
 
   &__name {
-    font-size: 22px;
-    line-height: 42px;
+    font-size: 10px;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    line-height: 14px;
+
+    @media(min-width: 600px) {
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    @media(min-width: 960px) {
+      font-size: 22px;
+      margin-bottom: 16px;
+      line-height: 26px;
+    }
   }
 
   &__price {
-    font-size: 18px;
+    font-weight: 700;
+    font-size: 14px;
+
+    @media(min-width: 960px) {
+      font-size: 18px;
+    }
   }
 
   &__content {
     text-align: left;
+    padding: 8px;
+
+    @media(min-width: 960px) {
+      padding: 16px;
+    }
   }
 
   &__currency {
-    font-size: 12px;
-    margin-left: 2px;
-    top: -2px;
+    margin-left: 4px;
+    top: 4px;
     position: relative;
+    font-size: 10px;
+    line-height: 10px;
+
+    @media(min-width: 960px) {
+      margin-left: 4px;
+      top: -2px;
+      position: relative;
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+  &__button {
+    margin-top: 16px;
+    text-transform: uppercase;
+  }
+
+  &__label {
+    color: #a7a7a7;
+    display: none;
+
+    @media(min-width: 960px) {
+      display: block;
+    }
+  }
+
+  &__categories {
+    margin-bottom: 4px;
+  }
+
+  ::ng-deep &__description,
+  &__description {
+    font-size: 12px;
+    line-height: 16px;
+
+    @media (min-width: 960px) {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    b, strong, a {
+      color: #000;
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    img, br, video {
+      display: none;
+    }
+  }
+
+  &__notification {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 32px;
+    max-width: 32px;
+    height: 32px;
+    line-height: 1;
+    border-radius: 50%;
+    padding: 0;
+    margin-left: 8px;
+
+    @media (min-width: 600px) {
+      top: -8px;
+      right: -8px;
+      position: relative;
+    }
   }
 }

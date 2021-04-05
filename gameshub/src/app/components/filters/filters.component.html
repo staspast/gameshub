@@ -1,49 +1,100 @@
-<div class="filters">
-  <div fxLayout="row" fxLayoutAlign="start start" class="filters__title">Szukaj</div>
-
-  <form [formGroup]="searchForm" class="filters__fields">
-    <div class="filters__field field__search">
-      <input formControlName="search" placeholder="Wyszukaj grę">
+<div fxLayout="column" fxLayout.gt-xs="row" fxLayout.gt-md="column" fxLayoutGap="16px">
+  <div class="filters" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <div fxLayout="row" fxLayoutAlign="start start" class="filters__title">Szukaj</div>
+      <button mat-icon-button
+              class="filters__collapse"
+              (click)="collapse($event, 'search'); searchT = !searchT;"
+              [ngClass]="searchT ? 'filters__search--open' : 'filters__search--close'">
+        <mat-icon svgIcon="arrow"></mat-icon>
+      </button>
     </div>
 
-    <div class="filters__field field__search" fxLayoutGap="24px">
-      <button mat-raised-button color="primary" (click)="search()" fxFlex="50">Wyszukaj</button>
-      <button mat-raised-button color="accent" (click)="clear()" fxFlex="50">Wyczyść</button>
-    </div>
-  </form>
-</div>
+    <div id="search">
+      <form [formGroup]="searchForm" class="filters__fields">
+        <div class="filters__field field__search">
+          <input formControlName="search" placeholder="Wyszukaj grę">
+        </div>
 
-<div class="filters">
-  <div fxLayout="row" fxLayoutAlign="start start" class="filters__title">Filtry</div>
-
-  <div class="filters__fields">
-    <div class="filters__field">
-      <div fxLayout="row" fxLayoutAlign="start start" class="filters__field--subtitle">Kategoria</div>
-      <div></div>
-    </div>
-
-    <div class="filters__field">
-      <div fxLayout="row" fxLayoutAlign="start start" class="filters__field--subtitle">Cena</div>
-
-      <div fxLayout="row" fxLayoutAlign="start start">
-        <input placeholder="Od">
-        <input placeholder="Do">
-      </div>
-    </div>
-
-    <div class="filters__field">
-      <div fxLayout="row" fxLayoutAlign="start start" class="filters__field--subtitle">Kategoria</div>
-      <div></div>
-    </div>
-
-    <div class="filters__field">
-      <div fxLayout="row" fxLayoutAlign="start start" class="filters__field--subtitle">Kategoria</div>
-      <div></div>
+        <div class="filters__field field__search" fxLayoutGap="24px">
+          <button mat-raised-button color="primary" (click)="search()" fxFlex="50">Wyszukaj</button>
+          <button mat-raised-button color="accent" (click)="clear('searchForm')" fxFlex="50">Wyczyść</button>
+        </div>
+      </form>
     </div>
   </div>
 
-  <div class="filters__field field__search" fxLayoutGap="24px">
-    <button mat-raised-button color="primary" (click)="search()" fxFlex="50">Wyszukaj</button>
-    <button mat-raised-button color="accent" (click)="clear()" fxFlex="50">Wyczyść</button>
+  <div class="filters" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <div fxLayout="row" fxLayoutAlign="start start" class="filters__title">Sortowanie</div>
+      <button mat-icon-button
+              class="filters__collapse"
+              (click)="collapse($event, 'sort'); sortT = !sortT;"
+              [ngClass]="sortT ? 'filters__sort--open' : 'filters__sort--close'">
+        <mat-icon svgIcon="arrow"></mat-icon>
+      </button>
+    </div>
+
+    <div id="sort">
+      <form [formGroup]="sortForm" class="filters__fields">
+        <div class="filters__field">
+          <mat-select formControlName="sortBy">
+            <mat-option *ngFor="let item of sortByList" [value]="item">
+              <span>{{item === 'price_asc' ? 'Cena - od najniższej' : 'Cena - od najwyższej'}}</span>
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="filters__field field__search" fxLayoutGap="24px">
+          <button mat-raised-button color="primary" (click)="search()" fxFlex="50">Sortuj</button>
+          <button mat-raised-button color="accent" (click)="clear('sortForm')" fxFlex="50">Wyczyść</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="filters">
+  <div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout="row" fxLayoutAlign="start start" class="filters__title">Filtry</div>
+    <button mat-icon-button
+            class="filters__collapse"
+            (click)="collapse($event, 'filters'); filtersT = !filtersT;"
+            [ngClass]="filtersT ? 'filters__filters--open' : 'filters__filters--close'">
+      <mat-icon svgIcon="arrow"></mat-icon>
+    </button>
+  </div>
+
+  <div id="filters">
+    <form [formGroup]="filterForm" class="filters__fields">
+      <div class="filters__field">
+        <div fxLayout="row" fxLayoutAlign="start start" class="filters__label">Kategoria</div>
+
+        <mat-select formControlName="categoryName">
+          <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="filters__field">
+        <div fxLayout="row" fxLayoutAlign="start start" class="filters__label">Cena</div>
+
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="16px">
+          <input formControlName="priceFrom" placeholder="Od" type="number">
+          <input formControlName="priceTo" placeholder="Do" type="number">
+        </div>
+      </div>
+
+      <div class="filters__field">
+        <div fxLayout="row" fxLayoutAlign="start start" class="filters__label">Marketplace</div>
+        <mat-select formControlName="marketplaceName">
+          <mat-option *ngFor="let marketplace of marketplaces" [value]="marketplace">{{marketplace}}</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="filters__field field__search" fxLayoutGap="24px">
+        <button mat-raised-button color="primary" (click)="search()" fxFlex="50">Filtruj</button>
+        <button mat-raised-button color="accent" (click)="clear('filterForm')" fxFlex="50">Wyczyść</button>
+      </div>
+    </form>
   </div>
 </div>

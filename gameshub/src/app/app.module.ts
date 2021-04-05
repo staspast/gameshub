@@ -26,6 +26,9 @@ import {EmptyStateComponent} from './components/empty-state/empty-state.componen
 import {FiltersComponent} from './components/filters/filters.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
+import {OfferDialogComponent} from './components/offer-dialog/offer-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     OfferComponent,
     EmptyStateComponent,
     FiltersComponent,
+    OfferDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatButtonModule,
     SwiperModule,
     ReactiveFormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [
     MatIconRegistry,

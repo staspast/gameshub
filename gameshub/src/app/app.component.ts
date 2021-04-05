@@ -13,6 +13,8 @@ export class AppComponent {
     private domSanitizer: DomSanitizer,
   ) {
     this.matIconRegistry
-      .addSvgIcon('account', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/account_circle-24px.svg'));
+      .addSvgIcon('account', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/account.svg'))
+      .addSvgIcon('arrow', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/arrow.svg'))
+      .addSvgIcon('grade', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/grade.svg'));
   }
 }

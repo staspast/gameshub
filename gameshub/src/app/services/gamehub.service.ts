@@ -24,12 +24,6 @@ export class GamehubService {
   }
 
   search = (data) => {
-    data = {
-      ...data,
-      pageNumber: 0,
-      pageSize: 10
-    };
-
     let params = new HttpParams();
 
     params = params.append('pageNumber', data.pageNumber);
@@ -39,8 +33,28 @@ export class GamehubService {
       params = params.append('name', data.name);
     }
 
+    if (data.categoryName) {
+      params = params.append('categoryName', data.categoryName);
+    }
+
+    if (data.priceFrom) {
+      params = params.append('priceFrom', data.priceFrom);
+    }
+
+    if (data.priceTo) {
+      params = params.append('priceTo', data.priceTo);
+    }
+
     if (data.marketplaceName) {
       params = params.append('marketplaceName', data.marketplaceName);
+    }
+
+    if (data.sort) {
+      params = params.append('sort', data.sort);
+    }
+
+    if (data.sortOrder) {
+      params = params.append('sortOrder', data.sortOrder);
     }
 
     return this.http.get<any>('http://192.168.0.198:8081/api/games/lucene_search', {
@@ -61,13 +75,7 @@ export class GamehubService {
     });
   }
 
-  addNotification = () => {
-    return this.http.post<any>('http://192.168.0.198:8081/api/notifications/add', {
-      params: {
-        gameId: 58216,
-        email: 'staspast1@gmail.com',
-        priceGoal: 100.89
-      }
-    });
+  addNotification = (parameters) => {
+    return this.http.post<any>('http://192.168.0.198:8081/api/notifications/add', parameters);
   }
 }

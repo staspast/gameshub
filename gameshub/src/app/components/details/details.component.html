@@ -1,11 +1,11 @@
 <div class="container">
   <div *ngIf="offer" class="details">
-    <div fxLayout="row" class="details__container">
-      <div class="details__main-image" fxLayoutAlign="center center" fxFlex="35">
+    <div fxLayout="column" fxLayout.gt-sm="row" class="details__container">
+      <div class="details__main-image" fxLayoutAlign="center center" fxFlex.gt-sm="35">
         <img src="{{offer.mainImageUrl}}" alt="">
       </div>
 
-      <div class="details__information" fxFlex="65">
+      <div class="details__information" fxFlex.gt-sm="65">
         <div class="details__marketplace">Platforma: {{offer.marketplaceName}}</div>
         <div class="details__name">{{offer.name}}</div>
         <div class="details__short-description" [innerHTML]="offer.shortDescription"></div>
@@ -27,18 +27,18 @@
       </div>
     </div>
 
-    <div fxLayout="row" class="details__container">
-      <div class="details__title" fxFlex="35">Opis produktu</div>
+    <div fxLayout="column" fxLayout.gt-sm="row" class="details__container">
+      <div class="details__title" fxFlex.gt-sm="35">Opis produktu</div>
 
-      <div fxFlex="65">
+      <div fxFlex.gt-sm="65">
         <div class="details__description" [innerHTML]="offer.description"></div>
       </div>
     </div>
 
-    <div fxLayout="row" class="details__container">
-      <div class="details__title" fxFlex="35">Galeria</div>
+    <div fxLayout="column" fxLayout.gt-sm="row" class="details__container">
+      <div class="details__title" fxFlex.gt-sm="35">Galeria</div>
 
-      <div fxFlex="65">
+      <div fxFlex.gt-sm="65">
         <div class="details__slider">
           <swiper class="swiper-container"
                   [config]="configSwiper">
@@ -51,7 +51,7 @@
       </div>
     </div>
 
-    <div>
+    <div *ngIf="offerFromOtherStore && offerFromOtherStore.length">
       <div class="details__title">Porównaj oferty</div>
 
       <div>
