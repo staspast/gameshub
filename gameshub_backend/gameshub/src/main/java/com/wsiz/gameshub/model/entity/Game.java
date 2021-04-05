@@ -32,7 +32,8 @@ public class Game {
     @SequenceGenerator(name = "game_seq", sequenceName = "game_seq", allocationSize = 1)
     private Long id;
 
-    @FullTextField
+    @KeywordField(name = "nameSort", sortable = Sortable.YES)
+    @FullTextField(name = "name")
     @Column(length = 2000)
     private String name;
 
