@@ -1,0 +1,27 @@
+<div class="offer-dialog">
+  <h1 mat-dialog-title class="offer-dialog__title">Zapisz się na newsletter</h1>
+
+  <div mat-dialog-content>
+    <form [formGroup]="offerDialogForm" class="offer-offer-dialog__fields">
+      <div class="offer-dialog__field">
+        <div fxLayout="row" fxLayoutAlign="start start" class="offer-dialog__label">Nazwa</div>
+        <div>{{data.name}}</div>
+      </div>
+
+      <div class="offer-dialog__field">
+        <div fxLayout="row" fxLayoutAlign="start start" class="offer-dialog__label">E-mail</div>
+        <input class="offer-dialog__input" formControlName="email" placeholder="Podaj e-mail">
+      </div>
+
+      <div class="offer-dialog__field">
+        <div fxLayout="row" fxLayoutAlign="start start" class="offer-dialog__label">Cena</div>
+        <input class="offer-dialog__input" formControlName="priceGoal" placeholder="Podaj cenę" type="number">
+      </div>
+    </form>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="saveOffer()">Zapisz</button>
+    <button mat-button mat-dialog-close>Zamknij</button>
+  </div>
+</div>
