@@ -1,6 +1,18 @@
 package com.wsiz.gameshub.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -13,21 +25,8 @@ import com.wsiz.gameshub.dto.steam.SteamGamesListResponseDto;
 import com.wsiz.gameshub.mapper.SteamMapper;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.model.repository.GamesRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -44,7 +43,6 @@ public class SteamService implements GameProviderService<SteamGameDetailsDto> {
     private final SteamMapper mapper;
     private final WebClient webClient;
 
-    @Autowired
     public SteamService(GamesRepository gamesRepository, SteamMapper steamMapper){
         final BrowserVersion myChrome = new BrowserVersion.BrowserVersionBuilder(BrowserVersion.CHROME)
                 .setUserAgent("Googlebot/2.1 (+http://www.googlebot.com/bot.html)")

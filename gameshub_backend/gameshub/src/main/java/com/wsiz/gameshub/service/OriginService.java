@@ -1,23 +1,11 @@
 package com.wsiz.gameshub.service;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.DomNodeList;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.dto.gog.GogGameDetailsDto;
-import com.wsiz.gameshub.dto.humblebundle.HumbleBundleGameDetailsDto;
-import com.wsiz.gameshub.dto.origin.OriginGameDetailsDto;
-import com.wsiz.gameshub.dto.origin.OriginGamesListResponseDto;
-import com.wsiz.gameshub.mapper.OriginMapper;
-import com.wsiz.gameshub.model.entity.Category;
-import com.wsiz.gameshub.model.entity.Game;
-import com.wsiz.gameshub.model.entity.GameImage;
-import com.wsiz.gameshub.model.repository.CategoryRepository;
-import com.wsiz.gameshub.model.repository.GameImageRepository;
-import com.wsiz.gameshub.model.repository.GamesRepository;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,11 +13,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.wsiz.gameshub.dto.origin.OriginGameDetailsDto;
+import com.wsiz.gameshub.dto.origin.OriginGamesListResponseDto;
+import com.wsiz.gameshub.mapper.OriginMapper;
+import com.wsiz.gameshub.model.entity.Game;
+import com.wsiz.gameshub.model.repository.CategoryRepository;
+import com.wsiz.gameshub.model.repository.GameImageRepository;
+import com.wsiz.gameshub.model.repository.GamesRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service

@@ -1,5 +1,16 @@
 package com.wsiz.gameshub.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
 import com.wsiz.gameshub.dto.gog.GogGameDetailsDto;
 import com.wsiz.gameshub.dto.gog.GogGamesListResponseDto;
@@ -10,17 +21,6 @@ import com.wsiz.gameshub.model.entity.GameImage;
 import com.wsiz.gameshub.model.repository.CategoryRepository;
 import com.wsiz.gameshub.model.repository.GameImageRepository;
 import com.wsiz.gameshub.model.repository.GamesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GogService implements GameProviderService<GogGameDetailsDto> {
@@ -39,7 +39,6 @@ public class GogService implements GameProviderService<GogGameDetailsDto> {
 
     private final static int GOG_PAGE_MAX = 98;
 
-    @Autowired
     public GogService(GamesRepository gamesRepository, GogMapper steamMapper, CategoryRepository categoryRepository, GameImageRepository gameImageRepository){
         this.restTemplate = new RestTemplate();
         this.gamesRepository = gamesRepository;

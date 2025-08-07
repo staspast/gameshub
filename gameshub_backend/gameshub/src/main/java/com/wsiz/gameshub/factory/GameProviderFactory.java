@@ -1,10 +1,16 @@
 package com.wsiz.gameshub.factory;
 
-import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.decorator.*;
-import com.wsiz.gameshub.service.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import com.wsiz.gameshub.constant.MarketPlaceConstants;
+import com.wsiz.gameshub.service.EpicGamesService;
+import com.wsiz.gameshub.service.GameProviderService;
+import com.wsiz.gameshub.service.GogService;
+import com.wsiz.gameshub.service.HumbleBundleService;
+import com.wsiz.gameshub.service.OriginService;
+import com.wsiz.gameshub.service.SteamService;
+
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor

@@ -1,13 +1,13 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/gameshub
-    username: postgres
+    username: admin
     password: admin
   jpa:
     show-sql: true
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   mail:
     host: localhost
     port: 25
@@ -17,9 +17,6 @@ spring:
       mail:
         smtp:
           auth: true
-  cache:
-    jcache:
-      config: classpath:ehcache.xml
 
 server:
   port: 8081

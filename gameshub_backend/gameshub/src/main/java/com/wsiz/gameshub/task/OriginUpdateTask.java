@@ -1,7 +1,6 @@
 package com.wsiz.gameshub.task;
 
 import com.wsiz.gameshub.constant.MarketPlaceConstants;
-import com.wsiz.gameshub.decorator.EpicGamesDecorator;
 import com.wsiz.gameshub.decorator.OriginDecorator;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.model.repository.GamesRepository;

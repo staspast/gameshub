@@ -14,7 +14,6 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class EpicGamesListResponseDto {
 
     private List<EpicGameDto> gamesList = new ArrayList<>();

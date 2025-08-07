@@ -3,7 +3,7 @@ package com.wsiz.gameshub.model.entity;
 import lombok.*;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordField;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity(name = "CATEGORY")

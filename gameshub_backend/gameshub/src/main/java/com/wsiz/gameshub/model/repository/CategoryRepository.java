@@ -1,9 +1,8 @@
 package com.wsiz.gameshub.model.repository;
 
-import com.wsiz.gameshub.model.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import com.wsiz.gameshub.model.entity.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 

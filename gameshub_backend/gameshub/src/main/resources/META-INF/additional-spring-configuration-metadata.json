@@ -1,0 +1,42 @@
+{"properties": [
+  {
+    "name": "external-api.steam.url",
+    "type": "java.lang.String",
+    "description": "A description for 'external-api.steam.url'"
+  },
+  {
+    "name": "external-api.steam.store.url",
+    "type": "java.lang.String",
+    "description": "A description for 'external-api.steam.store.url'"
+  },
+  {
+    "name": "external-api.gog.embed.url",
+    "type": "java.lang.String",
+    "description": "A description for 'external-api.gog.embed.url'"
+  },
+  {
+    "name": "external-api.humblebundle.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'external-api.humblebundle.api.url'"
+  },
+  {
+    "name": "external-api.origin.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'external-api.origin.api.url'"
+  },
+  {
+    "name": "external-api.epic-games.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'external-api.epic-games.api.url'"
+  },
+  {
+    "name": "external-api.origin.store.url",
+    "type": "java.lang.String",
+    "description": "A description for 'external-api.origin.store.url'"
+  },
+  {
+    "name": "external-api.gog.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'external-api.gog.api.url'"
+  }
+]}

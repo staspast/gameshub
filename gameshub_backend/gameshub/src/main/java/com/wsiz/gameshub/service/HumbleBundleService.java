@@ -1,5 +1,17 @@
 package com.wsiz.gameshub.service;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomNode;
@@ -11,19 +23,8 @@ import com.wsiz.gameshub.dto.humblebundle.HumbleBundleGamesListResponseDto;
 import com.wsiz.gameshub.mapper.HumbleBundleMapper;
 import com.wsiz.gameshub.model.entity.Game;
 import com.wsiz.gameshub.model.repository.GamesRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -39,7 +40,6 @@ public class HumbleBundleService implements GameProviderService<HumbleBundleGame
 
     private final static int HUMBLE_PAGE_MAX = 433;
 
-    @Autowired
     public HumbleBundleService(GamesRepository gamesRepository, HumbleBundleMapper steamMapper){
 
         final BrowserVersion myChrome = new BrowserVersion.BrowserVersionBuilder(BrowserVersion.CHROME)

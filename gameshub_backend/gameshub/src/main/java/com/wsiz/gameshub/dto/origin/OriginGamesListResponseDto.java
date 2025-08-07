@@ -12,7 +12,6 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class OriginGamesListResponseDto {
 
     private List<OriginGameDto> gamesDtoList = new ArrayList<>();

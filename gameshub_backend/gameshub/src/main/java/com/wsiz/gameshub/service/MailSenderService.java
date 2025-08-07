@@ -1,7 +1,9 @@
 package com.wsiz.gameshub.service;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.net.util.Base64;
+import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.nio.charset.Charset;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MailSenderService {
 
     public void sendEmail(String emailTo, String subject, String text){
@@ -31,7 +34,7 @@ public class MailSenderService {
         ResponseEntity<String> response = restTemplate.postForEntity("https://api.mailgun.net/v3/sandboxefc7996723fc47c09b83553156006ed1.mailgun.org/messages",
             entity, String.class);
 
-        System.out.println(response.getBody());
+        log.info(response.getBody());
     }
 
     private HttpHeaders createHeaders(String username, String password){

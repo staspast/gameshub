@@ -1,15 +1,25 @@
 package com.wsiz.gameshub.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.Type;
 import org.hibernate.search.engine.backend.types.Projectable;
 import org.hibernate.search.engine.backend.types.Sortable;
 import org.hibernate.search.mapper.pojo.automaticindexing.ReindexOnUpdate;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
 
-import javax.persistence.*;
-import javax.persistence.Index;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -83,7 +93,6 @@ public class Game {
 
     @Column
     @Lob
-    @Type(type="org.hibernate.type.TextType")
     private String description;
 
     @Column(length = 4000)

@@ -1,18 +1,19 @@
 package com.wsiz.gameshub.model.repository;
 
-import com.wsiz.gameshub.model.entity.Game;
-import com.wsiz.gameshub.request.SearchGamesFilter;
+import java.util.Locale;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 import org.hibernate.search.engine.search.query.SearchResult;
-import org.hibernate.search.engine.search.sort.SearchSort;
 import org.hibernate.search.engine.search.sort.dsl.SortOrder;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.Locale;
+import com.wsiz.gameshub.model.entity.Game;
+import com.wsiz.gameshub.request.SearchGamesFilter;
 
 @Transactional(readOnly = true)
 @Component
@@ -30,7 +31,7 @@ public class GamesRepositoryImpl implements GamesLuceneRepository{
         String order = filter.getSortOrder() != null ? filter.getSortOrder().toUpperCase(Locale.ROOT) : "ASC";
 
         return searchSession.search(Game.class).where(game ->
-                game.bool(bool -> {
+                game.bool().with(bool -> {
                     bool.must( game.matchAll() );
                     if(filter.getName() != null){
                         bool.must(game.match().field("name").matching(filter.getName()).fuzzy(1));

@@ -1,10 +1,9 @@
 package com.wsiz.gameshub.mapper;
 
-import com.wsiz.gameshub.dto.game.CategoryDto;
-import com.wsiz.gameshub.dto.game.GameDto;
-import com.wsiz.gameshub.model.entity.Category;
-import com.wsiz.gameshub.model.entity.Game;
 import org.springframework.stereotype.Component;
+
+import com.wsiz.gameshub.dto.game.CategoryDto;
+import com.wsiz.gameshub.model.entity.Category;
 
 @Component
 public class CategoryEntityToDtoMapper implements Mapper<Category, CategoryDto> {
