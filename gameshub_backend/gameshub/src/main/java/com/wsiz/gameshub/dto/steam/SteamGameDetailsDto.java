@@ -28,7 +28,8 @@ public class SteamGameDetailsDto {
     private String shortDescription;
     @JsonProperty("header_image")
     private String mainImageUrl;
-    private List<SteamCategoryDto> genres;
+    private List<SteamGenreDto> genres;
+    private List<SteamCategoryDto> categories;
     private List<SteamImageDto> screenshots;
     private List<String> developers;
     private List<String> publishers;

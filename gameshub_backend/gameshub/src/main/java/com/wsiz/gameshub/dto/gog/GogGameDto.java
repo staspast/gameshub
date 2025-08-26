@@ -40,7 +40,7 @@ public class GogGameDto {
 
     @JsonProperty("price")
     private void unpackFromNestedJson(Map<String, String> priceOverview){
-        this.currency = "PLN";//FIXME
+        this.currency = "PLN";
         this.priceFinal = new BigDecimal(priceOverview.get("finalAmount"));
         this.priceInitial = new BigDecimal(priceOverview.get("baseAmount"));
         this.discountPercent = new BigDecimal(priceOverview.get("discountPercentage"));

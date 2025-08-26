@@ -68,7 +68,7 @@ public class SteamService implements GameProviderService<SteamGameDetailsDto> {
     @Override
     public SteamGameDetailsDto getGameDetails(String externalGameId) {
 
-        System.out.println(externalGameId);
+        log.info("Getting game details for {}", externalGameId);
 
         SteamGameDetailsDto detailsDto = new SteamGameDetailsDto();
 

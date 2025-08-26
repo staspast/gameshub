@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(indexes = {
+@Table(name = "GAME_IMAGE", indexes = {
         @Index(name = "game_image_idx", columnList = "game_id")
 })
 public class GameImage {
@@ -22,7 +22,9 @@ public class GameImage {
     private Long id;
 
     @JsonIgnore
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "game_id", nullable = false,
+                foreignKey = @ForeignKey(name = "game_image_game_id_fkey"))
     private Game game;
 
     @Column(length = 4000)

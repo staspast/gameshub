@@ -6,18 +6,18 @@ import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordFie
 import jakarta.persistence.*;
 import java.util.List;
 
-@Entity(name = "CATEGORY")
+@Entity(name = "GENRE")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "CATEGORY")
-public class Category {
+@Table(name = "GENRE")
+public class Genre {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
-    @SequenceGenerator(name = "category_seq", sequenceName = "category_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "genre_seq")
+    @SequenceGenerator(name = "genre_seq", sequenceName = "genre_seq", allocationSize = 1)
     private Long id;
 
     @KeywordField
@@ -30,6 +30,6 @@ public class Category {
     @Column
     private Long externalId;
 
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "genres")
     private List<Game> games;
 }

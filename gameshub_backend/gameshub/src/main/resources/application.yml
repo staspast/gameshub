@@ -4,10 +4,10 @@ spring:
     username: admin
     password: admin
   jpa:
-    show-sql: true
-    generate-ddl: true
+    show-sql: false
+    generate-ddl: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
   mail:
     host: localhost
     port: 25
@@ -17,6 +17,11 @@ spring:
       mail:
         smtp:
           auth: true
+
+flyway:
+  enabled: true
+  locations: classpath:db/migration
+  baseline-on-migrate: true 
 
 server:
   port: 8081

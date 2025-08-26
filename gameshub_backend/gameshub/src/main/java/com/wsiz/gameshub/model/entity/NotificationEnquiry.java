@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "NOTIFICATION_ENQUIRY")
 public class NotificationEnquiry {
 
     @Id

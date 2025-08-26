@@ -5,10 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
@@ -30,7 +33,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity(name = "GAME")
-@Table(indexes = {
+@Table(name = "GAME", indexes = {
         @Index(name = "game_name_idx", columnList = "name"),
         @Index(name = "game_loaded_idx", columnList = "marketplaceName, loadedDetailsFromExternalApi")
 })
@@ -88,7 +91,7 @@ public class Game {
     @Column(length = 4000)
     private String mainImageUrl;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private List<GameImage> gameImages;
 
     @Column
@@ -100,8 +103,23 @@ public class Game {
 
     @IndexingDependency(reindexOnUpdate = ReindexOnUpdate.SHALLOW)
     @IndexedEmbedded
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name = "CATEGORY_GAME",
+        joinColumns = @JoinColumn(name = "game_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     private List<Category> categories;
+
+    @IndexingDependency(reindexOnUpdate = ReindexOnUpdate.SHALLOW)
+    @IndexedEmbedded
+    @ManyToMany(fetch = FetchType.LAZY,  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name = "GENRE_GAME",
+        joinColumns = @JoinColumn(name = "game_id"),
+        inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<Genre> genres;
 
     @FullTextField
     @Column(length = 2000)
